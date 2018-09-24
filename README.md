@@ -16,24 +16,40 @@ ThinkPHP 5.0------简窝博客1.0
 详细开发文档参考 [ThinkPHP5完全开发手册](http://www.kancloud.cn/manual/thinkphp5)
 
 项目开发环境：
+
 Mac OS Sierra10.13.4
+
 Mysql 5.7
+
 php 7.2.7
+
 thinkphp 5.1
+
 CentOS7 
 
 
+
 技术选型：
+
 thinkPHP
+
 JQuery
+
 Bootstrap
+
 Vue
+
 Layui
+
 Layer
+
 Geetest（图片验证码）
+
 qiniu（图片对象存储服务器）
+
 tinymce（文本编辑器）
-项目结构
+
+
 
 
 
