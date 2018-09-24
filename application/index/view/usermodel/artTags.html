@@ -1,0 +1,42 @@
+{if condition="($taglist!=null)"}
+<div class="art-tags">
+    <p>标签云集</p>
+     <div>
+         {foreach name="taglist" item="tags"}
+         <span>
+             <a href="{:Url('index/index/index',['tagid'=>$tags.tags_id])}">{$tags.tags_content}</a>
+             <a style="display: none" class="tags-id">{$tags.count}</a>
+         </span>
+         {/foreach}
+     </div>
+ </div>
+{/if}
+ <script>
+     spans = $('.art-tags>div').find('span');
+     for (var i = 0; i < spans.length; i++) {
+         var color = Math.random();
+         var r = parseInt((color * (i + 1) * 1234) % 254);
+         var g = parseInt((color * (i + 1) * 4321) % 254);
+         var b = parseInt((color * (i + 1) * 2222) % 254);
+         $(spans[i]).css("background-color", "rgba(" + r + "," + g + "," + b + ",0.1)")
+         $(spans[i]).css("border", "  1px rgba(" + r + "," + g + "," + b + ",1) solid")
+     }
+
+
+     $(function () {
+         $('.art-tags span ').mouseover(function (e) {
+             $(this).mousemove(function (e) {
+                 var x=e.pageX;
+                 var y=e.pageY;
+                 var xx=e.screenX;
+                 var yy=e.screenY;
+                 $(this).after('<span style="color:red" class="tit_alt">'+ $(this).find('.tags-id').text()+'个话题</span>');
+                 $(this).parent().find('.tit_alt').css('position','absolute').css('left',x).css('top',y-50)
+             })
+         });
+         $(document).on('mouseleave','.art-tags span ',function () {
+             // $(this).parent
+             $(this).parent().find('.tit_alt').remove();
+         });
+     })
+ </script>

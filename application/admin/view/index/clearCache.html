@@ -1,0 +1,64 @@
+﻿{extend name="baseView/index"/}
+{block name="content"}
+<title>清除缓存</title>
+<div class="clearcache">
+    <p>清理缓存</p>
+    <form method="post" id="clearform">
+        <fieldset>
+            <legend>缓存选项:</legend>
+            `
+            <p>临时文件: <input type="checkbox" name="temp" value="temp" id="temp" class="lcs_check"
+                                     autocomplete="off"/></p>
+            <p> 数据缓存: <input type="checkbox" name="cache" value="cache" id="cache" class="lcs_check"
+                                      autocomplete="off"/></p>
+            <p>日志文件: <input type="checkbox" name="log" value="log" id="log" class="lcs_check"
+                                     autocomplete="off"/></p>
+          <button class="btn sure" id="save" type="button">执行操作</button>
+        </fieldset>
+    </form>
+
+</div>
+
+<script>
+    $(function () {
+        $('input').lc_switch();
+        $('.clearcache').delegate('.lcs_check', 'lcs-on', function () {
+            // console.log('field is checked');
+        });
+        $('body').delegate('.lcs_check', 'lcs-off', function () {
+            // console.log('field is unchecked');
+        });
+    });
+    $('#save').click(function () {
+        var formdata=$('#clearform').serialize();
+        // console.log($('#log').is(':checked'));
+        if (!$('#log').is(':checked')&&!$('#cache').is(':checked')&&!$('#temp').is(':checked')){
+                alert_fail('提示','你未选择操作的项！');
+                return false;
+        }
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            data:formdata,
+            url:'{:Url("admin/index/clearCacheSub")}',
+            success:function (data) {
+                console.log(JSON.stringify(data));
+                if (JSON.stringify(data)){
+                    alert_success('提示','清除成功!')
+
+                } else{
+                    alert_fail('提示','已经清理过了!')
+
+                }
+
+            },
+            error:function () {
+                alert_fail('提示','未知错误!')
+            }
+            
+            
+        })
+        
+    })
+</script>
+{/block}

@@ -1,0 +1,47 @@
+{extend name="baseView/index"}
+{block name="main"}
+<div class="index-main">
+    <div class="detail">
+        <div class="position">
+            <span>当前位置:<a href="{:Url(\'index/index/index\')}' ">首页>></a> 文章预览</span>
+        </div>
+        <div class="art-con">
+            <div class="art-det-info" id="art-det-info">
+                <div><span>{$article.title}</span></div>
+                <div>
+                    <span class="art-author"><i class="iconfont">&#xe67a;</i> :{$article.article_author }</span>
+                    <span class="art-type"><i class="iconfont">&#xe618;</i>:{$article.type}</span>
+
+                </div>
+            </div>
+
+            <div class="art-txt">
+                {$article.content}
+            </div>
+        </div>
+    </div>
+    <div class="art-foot">
+        <div class="art-copyright">
+            <span><b>版权声明:</b>本站原创文章，于{$article.article_modified}最后修改，由{$articleCon.article_author }发表</span>
+            <span><b>转载请注明:</b>{$article.title}| 简窝博客</span>
+        </div>
+
+    </div>
+    <div class="page-foot"></div>
+</div>
+
+<script>
+    window.onload = function () {
+        prettyPrint();
+        // if ({$goodsAdd} == 1) {
+        //     $(".goods-add").css('color', 'red');
+        //     $('.goods-add').html('<i class="iconfont" id="goodsafter">&#xe672;</i></br>{$articleCon.article_goodscount}').css('display', 'block')
+        // }
+
+    }
+
+
+
+</script>
+{/block}
+

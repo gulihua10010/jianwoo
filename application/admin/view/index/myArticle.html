@@ -1,0 +1,424 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<title>我的文章</title>
+<div class="myArticle">
+    <p>我的文章</p>
+    <div>
+        <span><a href="{:Url('admin/index/myArticle',['m'=>all])}">全部 ({$countall})</a></span>
+        <span></span><span><a href="{:Url('admin/index/myArticle',['m'=>published])}">已发布({$countpub})</a></span><span></span>
+        <span><a href="{:Url('admin/index/myArticle',['m'=>draft])}">草稿({$countdraft})</a></span>
+    </div>
+    <div>
+        <span>
+        <input style="position: relative;top:5px;right: 5px;" type="checkbox" id="sel-art">
+        <select class="selectpicker" id="art-op-sel" title="批量操作">
+            <option value="1">移至回收站</option>
+            {if condition=" $m eq 1"}
+            <option value="2">移动至草稿</option>
+            {/if}
+            {if condition=" $m eq 0"}
+            <option value="3">批量发布</option>
+            {/if}
+        </select>
+        <button class="btn" id="art-op">应用</button>
+            </span>
+        <span>
+        <select name="date" class="selectpicker" id="sel-date" title="全部日期">
+            <option value="1">一周内</option>
+            <option value="2">一个月内</option>
+            <option value="3">三个月内</option>
+            <option value="4">三个月前</option>
+        </select>
+        <select name="type" class="selectpicker" id="sel-type" title="全部分类">
+            {foreach name="types" item="types"}
+            <option style="font-weight: bold;color: black" value="-{$types.menu_id}">{$types.menu_name}</option>
+            {foreach name="types.subtype" item="sutypes"}
+            <option style="color: #777" value="{$sutypes.types_id}">{$sutypes.types_content}</option>
+            {/foreach}
+            {/foreach}
+        </select>
+        <button class="btn" type="submit" style="background-color: #39d8ff" id="screening">筛选</button>
+
+        </span>
+    </div>
+    <div class="art-list">
+        <table class="table table-hover table-artlist">
+            <tr>
+                <th>标题</th>
+                <th>作者</th>
+                <th>分类</th>
+                <th>评论</th>
+                <th class="art-date">日期<span>
+                    <a style="color: #5bc0de"><i class="iconfont">&#xe655;</i></a>
+                </span></th>
+                <th>操作</th>
+                <th style="display: none"></th>
+            </tr>
+
+            {foreach name="article" item="article"}
+            <tr>
+                <td class="td-title">{$article.article_title}</td>
+                <td class="td-author">{$article.article_author}</td>
+                <td>{if condition="($article.article_type.types_content!=null )"}
+                    {$article.article_type.types_content}
+                    {elseif condition="($article.article_type.menu_name!=null )"/}
+                    {$article.article_type.menu_name}
+                    {else /}首页
+                    {/if}
+                </td>
+                <td><a href="{:Url('admin/index/commentManagement',['artid'=>$article.article_id])}">共{$article.article_commentCount}条评论</a></td>
+                <td>{$article.article_pushdate}</td>
+                <td class="table-btn">
+                    <button class="btn edit">编辑</button>
+                    <button class="btn fast-edit">快速编辑</button>
+                    <button class="btn del">删除</button>
+                    {if condition=" $m eq 0"}
+                    <button class="btn pubsh">发布</button>
+                    {/if}
+                </td>
+                <td style="display: none" class="td-artid">{$article.article_id}</td>
+                <td style="display: none" class="td-ispublic">{$article.article_public}</td>
+                <td style="display: none" class="td-pwd">{$article.article_password}</td>
+                <td style="display: none" class="td-tags">{volist name="article.article_tags" id="arttags"}
+                    <span>{$arttags.tags_id}</span>
+                    {/volist}
+                </td>
+                <td style="display: none" class="td-iscomment">{$article.article_iscomment}</td>
+                <td style="display: none" class="td-typeid">{$article.article_typeid}</td>
+            </tr>
+            {/foreach}
+        </table>
+        <div> {$page}</div>
+    </div>
+</div>
+<script>
+    $('#sel-art').click(function () {
+        if ($(this).is(':checked')) {
+            $('table tr:first-child th:first-child').before('<th><input type="checkbox" class="sel-all"><span>全选</span></th>')
+            $('table tr').each(function (index, ele) {
+                var artid = $(this).find('td.td-artid').text();
+                $(this).find('td:first-child').before(' <td><input type="checkbox" class="sel-art-check" value=' + artid + '> </td> ')
+            });
+            $('table tr>td:first-child').css('width', '8%');
+            $('.art-list').on('click','.sel-all',function () {
+                if ($(this).is(':checked')){
+                    $('.sel-art-check').prop('checked','checked');
+                    $('table tr:first-child th:first-child span').html('取消全选');
+                }else{
+                    $('.sel-art-check').removeAttr('checked');
+                    $('table tr:first-child th:first-child span').html('全选');
+
+                }
+            });
+        } else {
+            $('table tr:first-child th:first-child').remove()
+            $('table tr').each(function (index, ele) {
+                $(this).find('td:first-child').remove()
+            })
+        }
+    })
+
+    $('#art-op').click(function () {
+        var selval = $('#art-op-sel').val();
+        // console.log(selval)
+        var artids = new Array();
+        if (selval == undefined || selval == '') {
+            alert_fail('提示', '未选择操作')
+        } else {
+            $('.sel-art-check:checked').each(function (index, ele) {
+                console.log($(this).val())
+                artids[index] = $(this).val();
+            })
+            console.log(artids)
+            if (artids.length == 0) {
+                alert_fail('提示', '你未选择文章')
+            } else {
+                if (selval == 1) {
+                    selOp("{:Url('admin/index/recycle')}", artids);
+                } else if (selval == 2) {
+                    selOp("{:Url('admin/index/removeDraft')}", artids)
+                } else if (selval == 3) {
+                    selOp("{:Url('admin/index/published')}", artids)
+                }
+
+
+            }
+        }
+    })
+    $('.table-artlist').on('click','.del',function () {
+        var artid = $(this).parent().next().text();
+        var curart = $(this).parent().parent();
+        alert_ask_btn('你确定要移至回收站?', '确定', '直接删除', '取消', function () {
+            // console.log(artid) recycle
+            ajaxs({'data': JSON.stringify({artid: artid})}, "{:Url('admin/index/recycle')}", function () {
+                setTimeout(function () {
+                    curart.remove();
+                },2200);
+
+                alert_success('提示', '操作成功')
+            })
+
+        }, function () {
+            alert_ask('直接删除不可恢复！谨慎操作！', function () {
+                var re = ajaxs({'data': JSON.stringify({artid: artid})}, "{:Url('admin/index/delArt')}", function () {
+                    setTimeout(function () {
+                        curart.remove();
+                    },2200);
+                    alert_success('提示', '操作成功')
+
+                })
+
+
+            })
+        }, function () {
+
+        })
+    });
+    $('.table-artlist').on('click','.edit',function () {
+        var tr = $(this).parent().parent();
+        var artid = tr.children('td:nth-child(7)').text();
+        // console.log("artid"+artid)
+        var url='{:Url("admin/index/articleEdit",["artid"=>artids])}';
+        url=url.replace('artids',artid);
+        console.log(url)
+        window.location.href=url;
+
+    });
+    $('th.art-date>span').click(function () {
+        var Request=new Object();
+        Request=GetRequest();
+        if (Request['date']==undefined){
+            Request['date']='';
+        }
+        if (Request['type']==undefined){
+            Request['type']='';
+        }
+        if (Request['page']==undefined){
+            Request['page']=1;
+        }
+        if (Request['dateOrder']!=2){
+            window.location.href= "{:Url('admin/index/myArticle')}?m=" + Request['m'] + "&date=" + Request['date']
+                + "&type=" + Request['type']+"&dateOrder="+2+"&page="+Request['page'];
+        }else {
+            window.location.href= "{:Url('admin/index/myArticle')}?m=" + Request['m'] + "&date=" + Request['date']
+                + "&type=" + Request['type']+"&dateOrder="+1+"&page="+Request['page'];
+
+        }
+    });
+    $('.art-list').on('click', '.fast-edit', function () {
+        var tr = $(this).parent().parent();
+        var trc = tr.children().clone();
+        var title = tr.find('.td-title').text();
+        var artid = tr.find('.td-artid').text();
+        var author = tr.find('.td-author').text();
+        var ispublic = tr.find('.td-ispublic').text();
+        var pwd = tr.find('.td-pwd').text();
+        var tags = new Array()
+        tr.find('.td-tags').find('span').each(function (index) {
+            tags[index] = $(this).text()
+        })
+        var isCommnet = tr.find('.td-iscomment').text();
+        var typeid = tr.find('.td-typeid').text();
+        console.log(author);
+        tr.children().remove();
+        var i = 0;
+        tr.html(' <td colspan="6">\n' +
+            '        <div class="row">\n' +
+            '            <div class="col-lg-5  col-xs-5 col-xm-5">\n' +
+            '                <p>快速编辑</p>\n' +
+            '                <div><span>标题:</span><input class="form-control" type="text" name="title" id="title" value=' + title + '> </div>\n' +
+            '                <div><span>作者:</span><input class="form-control" type="text" name="author" id="author" value=' + author + '> </div>\n' +
+            '                <div>\n' +
+            '                    <div>\n' +
+            '                                                      <span><input class=" ispublic-radio" id="public" type="radio" name="isPublic" value="1"><label\n' +
+            '                                                              for="public">公开</label></span>\n' +
+            '                        <span> <input class="" id="hometop" type="checkbox" value="2"><label\n' +
+            '                                for="hometop">将文章置于首页顶端</label></span>\n' +
+            '                    </div>\n' +
+            '                    <div>\n' +
+            '                                                    <span> <input class=" ispublic-radio" id="passw" name="isPublic" value="-1" type="radio"><label\n' +
+            '                                                            for="passw">密码保护</label></span>\n' +
+            '                        <span> 密码:<input class="form-control"  disabled="disabled" placeholder="密码为字母或数字" type="text" value="' + pwd + '"id="passw-content"></span>\n' +
+            '                    </div>\n' +
+            '                    <div>\n' +
+            '                                                    <span> <input class=" ispublic-radio" id="secret" name="isPublic" value="0" type="radio"><label\n' +
+            '                                                            for="secret">私密</label></span>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="col-lg-5 col-xs-5 col-xm-5">\n' +
+            '                <p>文章标签:</p>\n' +
+            '                {volist name="tags" id="tags"}\n' +
+            '                <span> <label><input type="checkbox" class="art-tags" value="{$tags.tags_id}">{$tags.tags_content}</label></span>\n' +
+            '                {/volist}\n' +
+            '            </div>\n' +
+            '            <div class="col-lg-2 col-xs-2 col-xm-3">\n' +
+            '                <p>文章分类:</p>\n' +
+            '                <select name="type" class="form-control"  id="edit-types" title="全部分类">\n' +
+            '                     {foreach name="types1" item="types"}\n' +
+            '            <option   value="-{$types.menu_id}" class="" >{$types.menu_name}</option>\n' +
+            '            {foreach name="types.subtype" item="sutypes"}\n' +
+            '            <option   value="{$sutypes.types_id}">{$sutypes.types_content}</option>\n' +
+            '            {/foreach}\n' +
+            '            {/foreach} '+
+            '                </select> ' +
+            '                  <label>是否可以评论<input type="checkbox"  id="iscomment" name="iscommnet" > </label>  ' +
+            '                <div class="edit-btn">\n' +
+            '                    <button class="btn cancel" >取消</button>\n' +
+            '                    <button class="btn sure" >确定</button>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '        </div>\n' +
+            '    </td>')
+
+        $('.cancel').click(function () {
+            tr.children().remove();
+            tr.html(trc)
+        })
+        $(".ispublic-radio").each(function (index) {
+            if ($(this).val() == ispublic) {
+                $(this).attr("checked", "checked")
+            }
+        })
+        if (isCommnet == 1) {
+            $("#iscomment").attr("checked", "checked")
+
+        }
+        $('#edit-types').val(typeid)
+        $('.art-tags').each(function (index) {
+            for (var i = 0; i < tags.length; i++) {
+                if ($(this).val() == tags[i]) {
+                    $(this).attr('checked', 'checked')
+                }
+            }
+        })
+        $('#passw').click(function () {
+            if ($(this).is(':checked')){
+                $('#passw-content').removeAttr('disabled');
+            }
+        })
+        $('.ispublic-radio').not('#passw').click(function () {
+            $('#passw-content').attr('disabled','disabled')
+            $('#passw-content').val('')
+        })
+        $('#passw-content').click(function () {
+            $(this).parent().find('.pwdtips').remove()
+        })
+        $('.sure').click(function () {
+            var newtitle = $('#title').val();
+            var newauthor = $('#author').val();
+            var newpwd = null;
+            var i = 0;
+            var newtags = new Array();
+            var newispublic = $('.ispublic-radio:checked').val();
+            var newiscommnet=0;
+            var newtype=$('#edit-types').val();
+            // var iscomment ;
+            // (#`O′)
+            if ($('#hometop').is(':checked')){
+                newispublic = 2
+            }
+            if (newispublic == -1) { 
+                newpwd = $('#passw-content').val()
+                var pwdExp=/[a-zA-Z0-9]{5,17}/;
+                if (!(pwdExp.test(newpwd))){
+                    $('#passw-content').after('<span class="pwdtips" style="color: red">长度小于5或输入不合法</span> ')
+                    return false;
+                }
+            }
+            $('.art-tags:checked').each(function (index) {
+                    newtags[i++] = $(this).val()
+            })
+            if($('#iscomment').is(':checked')){
+                newiscommnet=1
+            }
+            // console.log(newtitle)
+            // console.log(newauthor)
+            // console.log(newpwd)
+            // console.log(newtags)
+            // console.log(newispublic)
+            // console.log(newiscommnet)
+            // console.log(newtype)
+            $.ajax({
+                type:'post',
+                data:{'data':JSON.stringify({artid:artid,title:newtitle,author:newauthor,ispublic:newispublic,iscomment:newiscommnet,pwd:newpwd,type:newtype,tags:newtags})},
+                dataType:'json',
+                url:'{:Url("admin/index/udArtBaseInfo")}',
+                success:function (data) {
+                    if (JSON.stringify(data) == '1'){
+                        var url=window.location.href;
+                        alert_success_url('提示','修改成功',url)
+
+                    } else {
+                        alert_fail('提示', '操作失败')
+
+                    }
+                }
+                , error: function () {
+                    alert_fail('提示', '未知错误')
+                }
+
+            })
+        })
+    })
+    $('.table-artlist').on('click','.pubsh',function () {
+        var artid = $(this).parent().next().text();
+        var curart = $(this).parent().parent();
+        alert_ask('你确定要发布么', function () {
+            ajaxs({'data': JSON.stringify({artid: artid})}, "{:Url('admin/index/published')}", function () {
+                curart.remove();
+                alert_success('提示', '操作成功')
+            })
+        })
+    })
+    $('#screening').click(function () {
+        var Requset = new Object();
+        Requset = GetRequest();
+        window.location.href = "{:Url('admin/index/myArticle')}?m=" + Requset['m'] + "&date=" + $('#sel-date').val() + "&type=" + $('#sel-type').val()
+
+    })
+    var Request = new Object();
+    Request = GetRequest();
+    $('#sel-date').val(Request['date'])
+    $('#sel-type').val(Request['type'])
+
+
+
+    function ajaxs(data, url, succ) {
+        var re = 0;
+        $.ajax({
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            url: url,
+            success: function (data) {
+                console.log(data)
+                if (JSON.stringify(data) == '1') {
+                    succ();
+                } else {
+                    alert_fail('提示', '操作失败')
+
+                }
+            }
+            , error: function () {
+                alert_fail('提示', '未知错误')
+            }
+
+        })
+    }
+
+    function selOp(url, artids) {
+        for (var i = 0; i < artids.length; i++) {
+            ajaxs({'data': JSON.stringify({artid: artids[i]})}, url, function () {
+                alert_success('提示', '操作成功')
+            })
+        }
+        setTimeout(function () {
+            $('.sel-art-check:checked').each(function (index, ele) {
+                // console.log($(this).val())
+                $(this).parent().parent().remove()
+            })
+        }, 2000)
+    }
+</script>
+{/block}

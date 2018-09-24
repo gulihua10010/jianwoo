@@ -1,0 +1,425 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<title>编辑文章</title>
+<script type="text/javascript">
+    globalcounter = 1;
+    tinymce.init({
+        selector: "#mytextarea",
+        plugins: [
+            "advlist  autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "table contextmenu directionality emoticons textpattern template textcolor paste fullpage  powerpaste toc codesample uploadvideo importcss textcolor colorpicker uploadimage"
+
+        ],
+        max_height: 550,
+        height: 550,
+        convert_urls: false,
+        branding: false,
+        toolbar1: "undo redo | cut copy paste | bold italic underline strikethrough |" +
+        " alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: " searchreplace | bullist numlist | outdent indent blockquote | link unlink anchor uploadimage uploadvideo code |" +
+        " inserttime preview | forecolor backcolor  |textpattern",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl |" +
+        " spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft  | codesample code  toc  powerpaste",
+        menubar: true,
+        toolbar_items_size: 'small',
+        code_dialog_height: 200,
+        code_dialog_width: 300,
+        font_formats: "宋体=宋体;微软雅黑=微软雅黑;新宋体=新宋体;微软雅黑='微软雅黑';黑体='黑体';仿宋='仿宋';楷体='楷体';隶书='隶书';幼圆='幼圆';" +
+        "Arial='Arial';Times New Roman='Times New Roman'",
+        automatic_uploads: true,
+        uploadimage_url: "{:Url('admin/Upload/uploadImg')}",
+        uploadvideo_url: "{:Url('admin/Index/uploadVideo')}",
+        content_css : "__STATIC__/css/tinymce.css",
+        codesample_languages: [
+            {text: 'HTML/XML', value: 'markup'},
+            {text: 'JavaScript', value: 'javascript'},
+            {text: 'CSS', value: 'css'},
+            {text: 'PHP', value: 'php'},
+            {text: 'Ruby', value: 'ruby'},
+            {text: 'Python', value: 'python'},
+            {text: 'Java', value: 'java'},
+            {text: 'C', value: 'c'},
+            {text: 'C#', value: 'csharp'},
+            {text: 'C++', value: 'cpp'}
+        ],
+        codesample_content_css:"__STATIC__/css/prism.css",
+        textcolor_map: [
+            "000000", "Black",
+            "993300", "Burnt orange",
+            "333300", "Dark olive",
+            "003300", "Dark green",
+            "003366", "Dark azure",
+            "000080", "Navy Blue",
+            "333399", "Indigo",
+            "333333", "Very dark gray",
+            "800000", "Maroon",
+            "FF6600", "Orange",
+            "808000", "Olive",
+            "008000", "Green",
+            "008080", "Teal",
+            "0000FF", "Blue",
+            "666699", "Grayish blue",
+            "808080", "Gray",
+            "FF0000", "Red",
+            "FF9900", "Amber",
+            "99CC00", "Yellow green",
+            "339966", "Sea green",
+            "33CCCC", "Turquoise",
+            "3366FF", "Royal blue",
+            "800080", "Purple",
+            "999999", "Medium gray",
+            "FF00FF", "Magenta",
+            "FFCC00", "Gold",
+            "FFFF00", "Yellow",
+            "00FF00", "Lime",
+            "00FFFF", "Aqua",
+            "00CCFF", "Sky blue",
+            "993366", "Red violet",
+            "FFFFFF", "White",
+            "FF99CC", "Pink",
+            "FFCC99", "Peach",
+            "FFFF99", "Light yellow",
+            "CCFFCC", "Pale green",
+            "CCFFFF", "Pale cyan",
+            "99CCFF", "Light sky blue",
+            "CC99FF", "Plum"
+        ],
+        language: 'zh_CN',
+        powerpaste_word_import: 'propmt',// 参数可以是propmt, merge, clear，效果自行切换对比
+        powerpaste_html_import: 'propmt',// propmt, merge, clear
+        powerpaste_allow_local_images: true,
+        paste_data_images: true,
+        paste_preprocess:function (plugin,args) {
+            function load(src){
+               loadImageToBlob(src, function(blobFile) {
+		       var x = new XMLHttpRequest();
+                   x.onreadystatechange = function(){
+                       if( this.readyState == 4 && this.status == 200 ){
+                           data = this.responseText;
+                           console.log('response data: ' + data);
+                       }
+                   };
+                   x.open('POST', '{:Url("Admin/Upload/uploadPasteImg")}');
+                   x.send(blobFile);
+                });
+
+
+            }
+
+
+        },
+        images_upload_handler: function (blobInfo, success, failure) {
+             var blob= blobInfo.blob();
+           var xhr,formdata;
+           xhr=new XMLHttpRequest();
+           xhr.withCredentials=false;
+            xhr.open('post','{:Url("Admin/Upload/index")}');
+            xhr.onload = function() {
+                var json;
+                if (xhr.status != 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.cdnurl != 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                success('//'+json.cdnurl);
+            };
+                formData = new FormData();
+                formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+                xhr.send(formData);
+
+
+
+
+
+        }
+
+    });
+
+</script>
+<div class="art-main">
+    <div class="art-content">
+        <div class="articleinfo">
+            <p>编辑文章</p>
+            <input type="text" name="title" placeholder="键入标题" value={$article.article_title} class="form-control"
+                   id="art-title">
+            <label for="art-author">作者：</label><input type="text" id="art-author" name="author"
+                                                      value={$article.article_author} class="form-control"
+                                                      placeholder="请输入作者">
+        </div>
+        <div class="textareas">
+            <textarea id="mytextarea" name="article">
+            </textarea>
+        </div>
+
+        <div style="display:none;">
+            <form id="form-articlePreview" method="post" target="_blank" action="{:Url('index/index/articlePreview')}">
+                <input type="hidden" name="title" id="artpre-title">
+                <input type="hidden" name="author" id="artpre-author">
+                <input type="hidden" name="content" id="artpre-content">
+                <input type="hidden" name="type" id="artpre-type">
+            </form>
+        </div>
+
+        <div class="art-comment">
+            <button class="btn add-comment">添加评论</button>
+            <div class="comment-input" style="display: none;">
+                <div>
+                    <div><span>评论</span></div>
+                </div>
+                <div>
+                <textarea class="comm-content" rows="5" cols="80">
+
+                </textarea>
+                </div>
+                <div class="comment-user">
+                    <div>
+                        <button class="btn comment-btn">提交评论</button>
+                    </div>
+                </div>
+
+            </div>
+            <table class="table table-hover comm-list">
+                {foreach name="artcomment" item="comm"}
+                <tr style="background-color: rgba(232,237,234,0.5)">
+                    <td>
+                        <div><img src="{$comm.comment_headimg}"><span class="comm-name">{$comm.comment_user}</span>
+                        </div>
+                        <div class="comm-time">{$comm.comment_date}</div>
+                        <div>回复给文章</div>
+                    </td>
+                    <td>{$comm.comment_content}</td>
+                    <td>
+                        <button class="btn reply">回复</button>
+                        <button class="btn del">删除</button>
+
+                    </td>
+                    <td style="display: none" class="comm-id">{$comm.comment_id}</td>
+                </tr>
+                {foreach name="comm.comment_reply" item="reply"}
+                <tr>
+                    <td>
+                        <div><img src="{$reply.comment_headimg}"><span class="comm-name">{$reply.comment_user}</span>
+                        </div>
+                        <div class="comm-time">{$reply.comment_date}</div>
+                        <div>回复给{$reply.comment_user}</div>
+                    </td>
+                    <td>{$reply.comment_content}</td>
+                    <td>
+                        <button class="btn reply">回复</button>
+                        <button class="btn del">删除</button>
+
+                    </td>
+                    <td style="display: none" class="comm-id">{$comm.comment_id}</td>
+
+                </tr>
+                {/foreach}
+
+                {/foreach}
+            </table>
+        </div>
+    </div>
+    <div class="art-pub-rightsider">
+        {include file="common/articleEdit/index"/}
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<div></div>
+<script>
+    var html = '{$htmlcontent}';
+    // console.log(html);
+    window.onload = function () {
+        tinyMCE.activeEditor.setContent(html);
+    }
+    $('.add-comment').click(function () {
+        console.log($(this).next().attr('style'));
+        if ($(this).next().attr('style') == 'display: none;') {
+            $(this).next().css('display', 'block');
+
+        } else {
+            $(this).next().css('display', 'none');
+
+        }
+    })
+
+    var $comment_input = '        <tr class="tr-comm-input"  style="height: 200px" >\n' +
+        '                    <td colspan="3" >\n' +
+        '                        <div class="comment-input">\n' +
+        '                            <div style="display: none">\n' +
+        '                                <div><span></span></div>\n' +
+        '                            </div>\n' +
+        '                            <div>\n' +
+        '                                        <textarea class="comm-content"  rows="5" cols="80">\n' +
+        '\n' +
+        '                                       </textarea>\n' +
+        '                            </div>\n' +
+        '                            <div class="comment-user" style="width: 100%">\n' +
+        '\n' +
+        '                                <div>\n' +
+        '                                    <button class="btn comment-btn">提交评论</button>\n' +
+        '                                </div>\n' +
+        '                            </div>\n' +
+        '\n' +
+        '                        </div>\n' +
+        '                    </td>\n' +
+        '                </tr>\n' +
+        '                ';
+    comment_input = $.parseHTML($comment_input);
+    $('.comm-list').on('click', '.reply', function () {
+        console.log($(this).parent().parent().next().attr('class'))
+        if ($(this).parent().parent().next().attr('class') != 'tr-comm-input') {
+            $(this).parent().parent().after(comment_input);
+        } else {
+            $(this).parent().parent().next().remove();
+
+        }
+    })
+
+    $('.art-comment').on('click', '.comment-btn', function () {
+        // console.log($(this).parent().parent().parent().prev().attr('class'))
+
+        // console.log("artid:"+artid);
+        // console.log("username:"+username);
+        // console.log("qq:"+qq);
+        // console.log("content:"+commentext);
+        var commid = {$commlastid} + 1;
+        // console.log('lastid:'+commid);
+        var Request = new Object();
+        Request = GetRequest();
+        var artId = Request['artid'];
+        var commentext = $(this).parent().parent().parent().find('textarea').val()
+        var username = '作者:';
+        var qq = '00000000';
+        var curtime = formatDate(new Date().getTime());
+        var addcom = null;
+        var info = null;
+        var replyId = null;
+        var index = null;
+        var commthis = null;
+        var parentUsername = null;
+        var headImgUrl = "__STATIC__/headimg/" + Math.ceil(Math.random() * 10) + ".jpg";
+        if ($(this).parent().parent().parent().prev().attr('class') == 'btn add-comment') {
+            replyId = -1;
+            info = '      <tr style="background-color: rgba(232,237,234,0.5)">\n' +
+                '                    <td>\n' +
+                '                        <div><img src="{$comm.comment_headimg}"><span class="comm-name">' + username + '</span>\n' +
+                '                        </div>\n' +
+                '                        <div class="comm-time">' + curtime + '</div>\n' +
+                '                        <div>回复给文章</div>\n' +
+                '                    </td>\n' +
+                '                    <td>' + commentext + '</td>\n' +
+                '                    <td>\n' +
+                '                        <button class="btn reply">回复</button>\n' +
+                '                        <button class="btn del">删除</button>\n' +
+                '\n' +
+                '                    </td>\n' +
+                ' <td style="display: none" class="comm-id">' + commid + '</td>' +
+                '                </tr>'
+            addcom = $('.comm-list');
+            commthis = $(this).parent().parent().parent();
+            commid++;
+            commAjax({
+                'data': JSON.stringify({
+                    commenttext: commentext,
+                    username: username,
+                    qq: qq,
+                    artId: artId,
+                    comment_parent: replyId,
+                    headimgUrl: headImgUrl
+                })
+            }, 1, addcom, info, commthis);
+        } else {
+            parentUsername = $(this).parent().parent().parent().parent().parent().prev().find('.comm-name').text();
+            replyId = $(this).parent().parent().parent().parent().parent().prev().find('.comm-id').text();
+            info = '  <tr>\n' +
+                '                    <td>\n' +
+                '                        <div><img src="{$reply.comment_headimg}"><span class="comm-name">' + username + '</span>\n' +
+                '                        </div>\n' +
+                '                        <div class="comm-time">' + curtime + '</div>\n' +
+                '                        <div>回复给 ' + parentUsername + '</div>\n' +
+                '                    </td>\n' +
+                '                    <td>' + commentext + '</td>\n' +
+                '                    <td>\n' +
+                '                        <button class="btn reply">回复</button>\n' +
+                '                        <button class="btn del">删除</button>\n' +
+                '\n' +
+                '                    </td>\n' +
+                '               <td style="display: none" class="comm-id">' + commid + '</td>' +
+                '                </tr>';
+            // console.log(replyId);
+            commthis = addcom = $(this).parent().parent().parent().parent().parent();
+            commid++;
+            commAjax({
+                'data': JSON.stringify({
+                    commenttext: commentext,
+                    username: username,
+                    qq: qq,
+                    artId: artId,
+                    comment_parent: replyId,
+                    headimgUrl: headImgUrl
+                })
+            }, 2, addcom, info, commthis);
+        }
+    })
+
+    function commAjax(data, type, addcom, info, commthis) {
+        $.ajax({
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            url: "{:Url('index/index/addComment')}",
+            success: function (data) {
+                console.log("com" + JSON.stringify(data));
+
+                var html = $.parseHTML(info);
+
+                alert_success('提示', '回复成功');
+                setTimeout(function () {
+                    $('.comm-content').val('');
+                    $('.qq').val('');
+                    $('.username').val('');
+                    type === 1 ? addcom.append(html) : addcom.after(html);
+                    commthis.remove();
+                }, 2000);
+            },
+            error: function () {
+                alert_fail('提示', '未知错误')
+            }
+
+
+        });
+
+    }
+
+    $('.comm-list').on('click', '.del', function () {
+        var commid = $(this).parent().next().text();
+        alert_ask('确定要删除此评论(所有回复评论也将会全部删除)?', function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                data: {'data': JSON.stringify({commid: commid})},
+                url: '{:Url("admin/index/delComment")}',
+                success: function (data) {
+                    console.log(data);
+                    var url = window.location.href;
+                    alert_success_url('提示', '删除成功', url);
+                },
+                error: function () {
+                    alert_fail('提示', '未知错误')
+                }
+            })
+        })
+
+
+    });
+</script>
+{/block}

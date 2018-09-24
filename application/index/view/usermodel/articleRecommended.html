@@ -1,0 +1,98 @@
+<div class="art-box">
+    <div class="artb-title">
+        <span>最新文章</span>
+        <span>随机推荐</span>
+        <span>热门文章</span>
+    </div>
+    <div class="newest-art display">
+        <ul>
+            {foreach name="newestArt" item="news"}
+            <li><a href="{:Url('index/index/detail',['id'=>$news.article_id])}">{$news.article_title|sub_str=###,22}</a>
+                <a style="display: none" class="tit-dis-no">{$news.article_title}</a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="random-art hidden">
+        <ul>
+            {foreach name="randomtArt" item="random"}
+            <li>
+                <a href="{:Url('index/index/detail',['id'=>$random.article_id])}">{$random.article_title|sub_str=###,22}</a>
+                    <a style="display: none" class="tit-dis-no">{$random.article_title}</a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="hot-art hidden">
+        <ul>
+            {foreach name="hotArt" item="hot"}
+            <li><a href="{:Url('index/index/detail',['id'=>$hot.article_id])}">{$hot.article_title|sub_str=###,22}</a>
+                <a style="display: none" class="tit-dis-no">{$hot.article_title}</a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        var i = 0;
+        $('.artb-title>span').eq(0).addClass('art-titlehover');
+        showArtbox();
+
+        function showArtbox() {
+            var d = i % 3;
+            $('.artb-title>span').eq(d).addClass('art-titlehover');
+            $('.artb-title>span').eq((d + 1) % 3).removeClass('art-titlehover');
+            $('.artb-title>span').eq((d + 2) % 3).removeClass('art-titlehover');
+            $('.art-box>div:not(.artb-title)').eq(d).removeClass('hidden');
+            $('.art-box>div:not(.artb-title)').eq(d).addClass('display');
+            $('.art-box>div:not(.artb-title)').eq((d + 1) % 3).addClass('hidden');
+            $('.art-box>div:not(.artb-title)').eq((d + 2) % 3).addClass('hidden');
+            i++;
+            $('.artb-title>span').mouseover(function () {
+                clearInterval(inter);
+            })
+        }
+
+        var inter = setInterval(function () {
+            showArtbox();
+        }, 2000)
+
+        $('.artb-title>span').each(function (index) {
+            $(this).mouseover(function () {
+                $('.artb-title>span').eq(index).addClass('art-titlehover');
+                $('.artb-title>span').eq((index + 1) % 3).removeClass('art-titlehover');
+                $('.artb-title>span').eq((index + 2) % 3).removeClass('art-titlehover');
+                $('.art-box>div:not(.artb-title)').eq(index).removeClass('hidden');
+                $('.art-box>div:not(.artb-title)').eq(index).addClass('display');
+                $('.art-box>div:not(.artb-title)').eq((index + 1) % 3).addClass('hidden');
+                $('.art-box>div:not(.artb-title)').eq((index + 2) % 3).addClass('hidden');
+            });
+        })
+        $('.artb-title>span').mouseleave(function () {
+            clearInterval(inter);
+            inter = setInterval(function () {
+                showArtbox();
+            }, 2000);
+
+        })
+            $('.art-box ul>li').mouseover(function (e) {
+                $(this).mousemove(function (e) {
+                    var x=e.pageX;
+                    var y=e.pageY;
+                    var xx=e.screenX;
+                    var yy=e.screenY;
+                    $(this).after('<span style="color:red" class="tit_alt">'+ $(this).find('.tit-dis-no').text()+'</span>');
+                    $(this).parent().find('.tit_alt').css('position','absolute').css('left',x).css('top',y-250)
+                })
+            });
+            $(document).on('mouseleave','.art-box ul>li',function () {
+                // $(this).parent
+                $(this).parent().find('.tit_alt').remove();
+            });
+
+    });
+
+
+</script>

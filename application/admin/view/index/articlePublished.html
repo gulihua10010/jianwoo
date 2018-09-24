@@ -1,0 +1,188 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<title>文章发布</title>
+<script type="text/javascript">
+    globalcounter = 1;
+    tinymce.init({
+        selector: "#mytextarea",
+        plugins: [
+            "advlist  autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "table contextmenu directionality emoticons template textcolor paste fullpage  powerpaste toc codesample uploadvideo importcss textcolor colorpicker uploadimage"
+
+        ],
+        max_height: 550,
+        height: 550,
+        convert_urls: false,
+        branding: false,
+        toolbar1: "undo redo | cut copy paste | bold italic underline strikethrough |" +
+            " alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: " searchreplace | bullist numlist | outdent indent blockquote | link unlink anchor uploadimage uploadvideo code |" +
+            " inserttime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl |" +
+            " spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft  | codesample code  toc  powerpaste",
+        menubar: true,
+        toolbar_items_size: 'small',
+        code_dialog_height: 200,
+        code_dialog_width: 300,
+        font_formats: "宋体=宋体;微软雅黑=微软雅黑;新宋体=新宋体;微软雅黑='微软雅黑';黑体='黑体';仿宋='仿宋';楷体='楷体';隶书='隶书';幼圆='幼圆';" +
+            "Arial='Arial';Times New Roman='Times New Roman'",
+        automatic_uploads: true,
+        uploadimage_url: "{:Url('admin/Upload/uploadImg')}",
+        uploadvideo_url: "{:Url('admin/Index/uploadVideo')}",
+        content_css : "__STATIC__/css/tinymce.css",
+        codesample_languages: [
+            {text: 'HTML/XML', value: 'markup'},
+            {text: 'JavaScript', value: 'javascript'},
+            {text: 'CSS', value: 'css'},
+            {text: 'PHP', value: 'php'},
+            {text: 'Ruby', value: 'ruby'},
+            {text: 'Python', value: 'python'},
+            {text: 'Java', value: 'java'},
+            {text: 'C', value: 'c'},
+            {text: 'C#', value: 'csharp'},
+            {text: 'C++', value: 'cpp'}
+        ],        codesample_content_css:"__STATIC__/css/prism.css",
+        textcolor_map: [
+            "000000", "Black",
+            "993300", "Burnt orange",
+            "333300", "Dark olive",
+            "003300", "Dark green",
+            "003366", "Dark azure",
+            "000080", "Navy Blue",
+            "333399", "Indigo",
+            "333333", "Very dark gray",
+            "800000", "Maroon",
+            "FF6600", "Orange",
+            "808000", "Olive",
+            "008000", "Green",
+            "008080", "Teal",
+            "0000FF", "Blue",
+            "666699", "Grayish blue",
+            "808080", "Gray",
+            "FF0000", "Red",
+            "FF9900", "Amber",
+            "99CC00", "Yellow green",
+            "339966", "Sea green",
+            "33CCCC", "Turquoise",
+            "3366FF", "Royal blue",
+            "800080", "Purple",
+            "999999", "Medium gray",
+            "FF00FF", "Magenta",
+            "FFCC00", "Gold",
+            "FFFF00", "Yellow",
+            "00FF00", "Lime",
+            "00FFFF", "Aqua",
+            "00CCFF", "Sky blue",
+            "993366", "Red violet",
+            "FFFFFF", "White",
+            "FF99CC", "Pink",
+            "FFCC99", "Peach",
+            "FFFF99", "Light yellow",
+            "CCFFCC", "Pale green",
+            "CCFFFF", "Pale cyan",
+            "99CCFF", "Light sky blue",
+            "CC99FF", "Plum"
+        ],
+        language: 'zh_CN',
+        powerpaste_word_import: 'propmt',// 参数可以是propmt, merge, clear，效果自行切换对比
+        powerpaste_html_import: 'propmt',// propmt, merge, clear
+        powerpaste_allow_local_images: true,
+        paste_data_images: true,
+        paste_preprocess:function (plugin,args) {
+            function load(src){
+                loadImageToBlob(src, function(blobFile) {
+                    var x = new XMLHttpRequest();
+                    x.onreadystatechange = function(){
+                        if( this.readyState == 4 && this.status == 200 ){
+                            data = this.responseText;
+                            console.log('response data: ' + data);
+                        }
+                    };
+                    x.open('POST', '{:Url("Admin/Upload/uploadPasteImg")}');
+                    x.send(blobFile);
+                });
+
+
+            }
+
+
+        },
+        images_upload_handler: function (blobInfo, success, failure) {
+            var blob= blobInfo.blob();
+            var xhr,formdata;
+            xhr=new XMLHttpRequest();
+            xhr.withCredentials=false;
+            xhr.open('post','{:Url("Admin/Upload/index")}');
+            xhr.onload = function() {
+                var json;
+                if (xhr.status != 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.cdnurl != 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                success('//'+json.cdnurl);
+            };
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+            xhr.send(formData);
+
+
+
+
+
+        }
+
+    });
+
+</script>
+<div class="art-main">
+    <div class="art-content">
+        <div class="articleinfo">
+            <p>撰写新文章</p>
+            <input type="text" name="title" placeholder="键入标题" value="" class="form-control" id="art-title">
+            <label for="art-author">作者：</label><input type="text" id="art-author" name="author" class="form-control"
+                                                      placeholder="请输入作者">
+        </div>
+        <div class="textareas">
+            <textarea id="mytextarea" name="article">
+            </textarea>
+            <!--<input type="text" name="tagsId" id="tags-ids" style="display: none">-->
+            <!--<input type="text" name="typeId" id="type-id" style="display: none">-->
+            <!--<input type="text" name="img-src" id="img-src" style="display: none">-->
+            <!--<input type="text" name="isPublicRes" id="is-public-res" style="display: none" value="1">-->
+            <!--<input type="text" name="" id="is-public-pass" style="display: none">-->
+            <!--<input type="text" name="" id="is-com" style="display: none">-->
+
+        </div>
+
+
+    </div>
+    <div style="display:none;">
+        <form id="form-articlePreview" method="post" target="_blank" action="{:Url('index/index/articlePreview')}">
+            <input type="hidden" name="title" id="artpre-title">
+            <input type="hidden" name="author" id="artpre-author">
+            <input type="hidden" name="content" id="artpre-content">
+            <input type="hidden" name="type" id="artpre-type">
+        </form>
+    </div>
+    <div class="art-pub-rightsider">
+        {include file="common/articlePublished/index"/}
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<div></div>
+<script>
+
+
+</script>
+{/block}

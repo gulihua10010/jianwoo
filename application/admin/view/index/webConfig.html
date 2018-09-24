@@ -1,0 +1,207 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<title>网站配置</title>
+<div class="webconf">
+    <p>网站配置</p>
+
+        <div class="config-main">
+            <form id="webconf" method="post">
+                <label for="title">站点标题:</label>
+                <input class="form-control" type="text" autocomplete="off" name="title" id="title"
+                       value="{$webconf.webconf_title}">
+                <label for="author">网站作者:</label>
+                <input class="form-control" type="text" autocomplete="off" name="author" id="author"
+                       value="{$webconf.webconf_author}">
+                <label for="keywords">网站关键字: </label>
+                <input class="form-control" type="text" autocomplete="off" name="keywords" id="keywords"
+                       value="{$webconf.webconf_keywords}">
+                <label for="description">网站描述: </label>
+                <textarea class="form-control" cols="200" name="description" id="description">{$webconf.webconf_descriptions}</textarea>
+                <label for="record">网站备案:</label>
+                <input class="form-control" type="text" autocomplete="off" name="record" id="record"
+                       value="{$webconf.webconf_record}">
+                <label for="domail">网站域名:</label>
+                <input class="form-control" type="text" autocomplete="off" name="domail" id="domail"
+                       value="{$webconf.webconf_domain}">
+                <label for="footer">网站底部信息(支持html): </label>
+                <textarea class="form-control" cols="200" name="footer" id="footer">{$webconf.webconf_foothtml}</textarea>
+                <label for="domail">上传logo:</label>
+                <div class="layui-upload  " style="margin: 10px auto">
+                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                    <div class="layui-upload-list imgupload">
+                        <img {if condition="($webconf.webconf_logo!=null)"}src="//{$webconf.webconf_logo}" {/if}class="layui-upload-img" id="logoimg" width="200"
+                        style="margin-left: 5px">
+                        <p id="demoText"></p>
+                        <input style="visibility: hidden" id="logoimgsrc" name="logoimgsrc" value="{$webconf.webconf_logo}">
+                    </div>
+                </div>
+                <label for="domail">首页顶部图片:（建议9：1图片）</label>
+                <div class="layui-upload  " style="margin: 10px auto">
+                    <button type="button" class="layui-btn" id="test2">上传图片</button>
+                    <div class="layui-upload-list imgupload">
+                        <img {if condition="($webconf.webconf_indextopimg!=null)"}src="//{$webconf.webconf_indextopimg}" {/if}class="layui-upload-img"
+                        id="topimg" width="600"       style="margin-left: 5px">
+                        <p id="demoText1"></p>
+                        <input style="visibility: hidden" id="topimgsrc" name="topimgsrc" value="{$webconf.webconf_indextopimg}">
+                    </div>
+                </div>
+                <label for="page">每页显示</label><input class="form-control" type="text" autocomplete="off" style="width: 50px"
+                                                     name="page" id="page" value="{$webconf.webconf_page}"> <label>篇文章</label><br/>
+                <label for="textcount">首页文章缩略字数：</label><input class="form-control" type="text" autocomplete="off" style="width: 50px"
+                                                     name="textcount" id="textcount" value="{$webconf.webconf_indexartbreco}"><br/>
+                <label>开启评论: <input type="checkbox" width="50" value="1" name="iscomment" id="iscomment"></label>
+                <div class="div-btn">
+                    <button class="btn saveconf" type="button" id="sava">保存配置</button>
+                </div>
+            </form>
+        </div>
+
+     </div>
+
+</div>
+<script>
+    window.onload = function () {
+        if ("{$webconf.webconf_iscomment}" == 1) {
+            $('#iscomment').attr('checked', 'checked');
+
+        }
+    }
+    $('#sava').click(function () {
+        var formdate = $('#webconf').serialize();
+        $.ajax({
+            type: 'post',
+            data: formdate,
+            dataType: 'json',
+            async: true,
+            url: '{:Url("admin/index/webConSub")}',
+            success: function (data) {
+                console.log(data)
+                if (JSON.stringify(data)==1){
+                    alert_success('提示','保存成功！');
+
+                } else {
+                    alert_fail('提示','保存失败');
+                }
+            },
+            error: function () {
+                alert_fail('提示','未知错误');
+
+            }
+
+
+        })
+
+    });
+
+
+    layui.use('upload', function () {
+        var index ;
+        var $ = layui.jquery
+            , upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: '{:Url("admin/Upload/index")}'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#logoimg').attr('src', result); //图片链接（base64）
+                });
+                index = layer.load(0, {shade: false , offset: '400px'},{time:3000});
+            }
+            , done: function (res) {
+                layer.close(index);
+                console.log(res);
+                // //如果上传失败
+                $('result').text(res.status);
+                //    alert(res.status);
+                if (res.status) {
+                    layer.msg('上传成功', {
+                        title:'提示'
+                        //不自动关闭
+                        ,time:1000
+                        ,icon:6
+                        , offset: '400px'
+                    });
+                    $('#logoimgsrc').val(res.cdnurl);
+                }
+                //上传成功
+            }
+            , error: function () {
+                layer.close(index);
+                layer.msg('上传出错：1', {
+                    title:'提示'
+                    //不自动关闭
+                    ,time:1000
+                    ,icon:5
+                    , offset: '400px'
+                });
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+    });
+
+    layui.use('upload', function () {
+        var index ;
+        var $ = layui.jquery
+            , upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test2'
+            , url: '{:Url("admin/Upload/index")}'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#topimg').attr('src', result); //图片链接（base64）
+                });
+                index = layer.load(0, {shade: false , offset: '400px'},{time:3000});
+            }
+            , done: function (res) {
+                layer.close(index);
+                console.log(res);
+                // //如果上传失败
+                $('result').text(res.status);
+                //    alert(res.status);
+                if (res.status) {
+                    layer.msg('上传成功', {
+                        title:'提示'
+                        //不自动关闭
+                        ,time:1000
+                        ,icon:6
+                        , offset: '400px'
+                    });
+                    $('#topimgsrc').val(res.cdnurl);
+                }
+                //上传成功
+            }
+            , error: function () {
+                layer.close(index);
+                layer.msg('上传出错：1', {
+                    title:'提示'
+                    //不自动关闭
+                    ,time:1000
+                    ,icon:5
+                    , offset: '400px'
+                });
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+    });
+</script>
+{/block}

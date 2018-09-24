@@ -1,0 +1,116 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<div class="admin-index">
+    <p>欢迎来到简窝博客后台管理系统</p>
+    <div class="index-left">
+        <div class="fast-look">
+            <p>快速概览</p>
+            <span><i class="iconfont">&#xe633;</i> <a
+                    href="{:Url('admin/index/myArticle',['m'=>all])}">{$artsCount}篇文章</a></span>
+            <span><i class="iconfont">&#xe674;</i> <a href="{:Url('admin/index/myArticle',['m'=>draft])}">{$draftsCount}篇草稿</a></span>
+            <span><i class="iconfont">&#xe535;</i> <a href="{:Url('admin/index/commentManagement')}">{$commCount}条评论</a></span>
+            <span><i class="iconfont">&#xe6b1;</i> <a
+                    href="{:Url('admin/index/articleTags')}">{$tagscount}个标签</a></span>
+
+        </div>
+        <div class="fast-draft">
+            <p>快速草稿</p>
+            标题:<input type="text" class="form-control" name="title" id="title">
+            作者:<input type="text" class="form-control" name="author" id="author">
+            草稿:
+            <textarea   id="art-content">
+
+             </textarea>
+            <button class="btn save-draft">保存草稿</button>
+
+        </div>
+    </div>
+        <div class="admim-active">
+            <p>最近发布</p>
+            <ul>
+                {if condition="($recentArts==null)"}
+                <li>文章空空如也</li>
+                {else /}
+                {foreach name="recentArts" item="ra"}
+                <li><span>{$ra.article_pushdate} </span> 由<span>{$ra.article_author}</span>发表<span><a href="{:Url('admin/index/articleEdit',['artid'=>$ra.article_id])}">{$ra.article_title}</a></span></li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <div class="admim-active">
+            <p>最近草稿</p>
+            <ul>
+                {if condition="($recentDrafts==null)"}
+                <li>文章空空如也</li>
+                {else /}
+                {foreach name="recentDrafts" item="rd"}
+                <li><span>{$rd.article_pushdate} </span> 由<span>{$rd.article_author}</span>发表<span><a href="{:Url('admin/index/articleEdit',['artid'=>$rd.article_id])}">{$rd.article_title}</a></span></li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <div class="admim-active">
+            <p>最近评论</p>
+            <ul>
+                {if condition="(recentComms==null)"}
+                <li>评论空空如也</li>
+                {else /}
+                {foreach name="recentComms" item="rc"}
+                <li><span>{$rc.comment_date} </span> 由<span>{$rc.comment_user}</span>对文章<span>{$rc.article_title}发表评论<span>
+                    <a href="{:Url('admin/index/articleEdit',['artid'=>$rc.article_id])}">{$rc.comment_content}</a></span></li>
+                {/foreach}
+                {/if}
+            </ul>
+        </div>
+        <!--<div class="clear"></div>-->
+    <div class="clear"></div>
+</div>
+<script>
+$('.save-draft').click(function () {
+
+    var title=$('#title').val();
+    var author=$('#author').val();
+    var articleContent=$('#art-content').val();
+    if ($.trim(title)==''||$.trim(author)==''||$.trim(articleContent)=='') {
+        alert_fail('提示', '标题、作者或内容不能为空！');
+        return false;
+    }
+
+    $.ajax({
+        type: 'post',
+        data: {
+            'data': JSON.stringify({
+                title: title,
+                author: author,
+                articleContent: articleContent,
+            })
+        },
+        dataType: 'json',
+        async: true,
+        url:  '{:Url("admin/index/articleSaveDraft")}',
+        success: function (data) {
+            console.log(JSON.stringify(data));
+            if (JSON.stringify(data) == 1) {
+                alert_success_url('提示', '保存成功','{:Url("admin/index/index")}');
+                setTimeout(function () {
+                    $('textarea').val('');
+                    $('input').val('');
+                }, 2000)
+
+            } else {
+                alert_fail('提示', '保存失败');
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            // alert('错误-2');
+            // alert(XMLHttpRequest.status);
+            // alert(XMLHttpRequest.readyState);
+            // alert(textStatus);
+            alert_fail('提示', '未知错误');
+        }
+
+    })
+})
+
+</script>
+{/block}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>简窝博客安装程序</title>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+<link rel="stylesheet" href="./css/install.css">
+</head>
+<body>
+<script>
+    $(document).ready(function () {
+        $('.sure').click(function () {
+            var f=1;
+            $('input').each(function (index) {
+                if ( $(this).val()===''){
+                    alert($(this).prev().text()+'不能为空');
+                    $(this).css('border','red 1px solid');
+                    f=0;
+                }
+            });
+            if (f!=0){
+                if ($('#pwd').val().length<6){
+                    alert('密码不得少于6位！');
+                    $('#pwd').css('border','red 1px solid');
+                    f=0;
+                } else  if ($('#pwd').val()!=$('#apwd').val()){
+                    alert('两次密码不相同！');
+                    $('#pwd').css('border','red 1px solid');
+                    $('#apwd').css('border','red 1px solid');
+                    f=0;
+                }
+            }
+
+            if (f!==1){
+                return false;
+            } else{
+                return true;
+            }
+
+        })
+    })
+
+
+</script>
+<div id="nav">
+    <div class="inside">
+        <p class="name">简窝博客<span>安装向导</span></p>
+        <ul class="schedule">
+            <li class="number">1</li>
+            <li class="word">使用协议</li>
+        </ul>
+        <ul class="schedule">
+            <li class="number">2</li>
+            <li class="word">环境检测</li>
+        </ul>
+        <ul class="schedule">
+            <li class="number">3</li>
+            <li class="word">创建数据</li>
+        </ul>
+        <ul class="schedule active">
+            <li class="number">4</li>
+            <li class="word">创建管理员</li>
+        </ul>
+        <ul class="schedule">
+            <li class="number">5</li>
+            <li class="word">安装完成</li>
+        </ul>
+    </div>
+</div>
+<div id="out">
+    <div class="inside">
+        <div class="box create">
+            <form class="form-inline" action="./index.php?c=createadmin" method="post" >
+                <h2>创建管理员</h2>
+                <div class="one">
+                    <label class="control-label">管理员名</label>
+                    <input class="form-control" type="text" name="admin" value="admin" >
+                </div>
+                <div class="one">
+                    <label class="control-label"> 密码</label>
+                    <input class="form-control" id="pwd" type="password" name="admin_pwd" placeholder="不得少于6位">
+                </div>
+                <div class="one">
+                    <label class="control-label"> 确认密码</label>
+                    <input class="form-control" id="apwd" type="password">
+                </div>
+                <p class="agree">
+                    <a class="btn btn-primary" href="./index.php?c=create">上一步</a>
+                    <input class="btn btn-success sure" type="submit" value="确认">
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

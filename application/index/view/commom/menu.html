@@ -1,0 +1,47 @@
+<div class="index-menu">
+    <div>
+        <ul>
+
+            <li onclick="window.location.href='{:Url(\'index/index/index\')}'">
+                <span  {if condition="($menuname.menu_name ==null)"} class="menu-activity" {/if}>首页</span>
+            </li>
+            {foreach name="menulist" item="menulist"}
+            <li>
+                <span onclick="window.location.href='{:Url(\'index/index/index\',[\'m\'=>$menulist.menu_id])}' "
+                      {if condition="($menuname.menu_name == $menulist.menuName)"} class="menu-activity" {/if}>{$menulist.menuName}</span>
+                <ul class="submenu">
+                    {foreach name="menulist.subMenu" item="subMenu"}
+                    <li>
+                    <span onclick="window.location.href='{:Url(\'index/index/index\',[\'m\'=>$menulist.menu_id,\'t\'=>$subMenu.types_id])}' ">
+                        {$subMenu.types_content}
+                    </span>
+
+                    </li>
+                    {/foreach}
+                </ul>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="input-group  input-search">
+        <input class="form-control" type="text" id="keywords" placeholder="搜索文章" style="height: 40px">
+        <span class="input-group-btn" id="search-inputs">
+            <button class="btn btn-default" style="height: 40px;position: relative;right: 2px;"> <i class="iconfont">&#xe615;</i> </button>
+        </span>
+    </div>
+</div>
+<script>
+    // console.log(decodeURI(encodeURI('的')))
+
+    $('#search-inputs').click(function () {
+        var keywords=$('#keywords').val();
+        if (keywords!=''){
+
+            var url="{:Url('index/index/index',['keyword'=>keywords])}";
+            url=url.replace('keywords',(keywords))
+            console.log(encodeURIComponent(url))
+            window.location.href=encodeURI(encodeURI(url))
+        }
+    });
+
+</script>

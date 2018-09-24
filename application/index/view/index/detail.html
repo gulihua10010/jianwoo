@@ -1,0 +1,466 @@
+{extend name="baseView/index"}
+{block name="main"}
+<div class="index-main">
+    <div class="detail">
+        <div class="position">
+            <span>当前位置:<a href="{:Url(\'index/index/index\')}' ">首页>></a>
+                {foreach name="nav" item="nav"}
+                    <a href="{$nav.href}">{$nav.name }</a>>>
+                {/foreach}
+                {$articleCon.article_title}
+            </span>
+        </div>
+        <div class="art-con">
+            <div class="art-det-info" id="art-det-info">
+                <div><span>{$articleCon.article_title}</span></div>
+                <div>
+
+                    <span class="art-author"><i class="iconfont">&#xe67a;</i> :{$articleCon.article_author }</span>
+                    <span class="art-date"><i class="iconfont">&#xe65d;</i>:{$articleCon.article_pushdate}</span>
+                    <span class="art-type"><i class="iconfont">&#xe618;</i>:{$typecon}</span>
+                    <span class="art-readers"><i class="iconfont">&#xe603;</i>:{$articleCon.article_readcount}</span>
+
+                </div>
+            </div>
+
+            <div class="art-txt">
+                {$artcontext}
+            </div>
+        </div>
+    </div>
+    <div class="art-foot">
+        {if condition="($tags!=null)"}
+        <div class="artd-tags">
+            标签:
+            {foreach name="tags" item="tags"}
+            <span>{$tags.tags_content}</span>
+            {/foreach}
+        </div>
+        {/if}
+        <div class="art-copyright">
+            <span><b>版权声明:</b>本站原创文章，于{$article.article_modified}最后修改，由{$articleCon.article_author }发表</span>
+            <span><b>转载请注明:</b>{$articleCon.article_title}| 简窝博客</span>
+        </div>
+
+    </div>
+    <div class="art-goods">
+        {if condition="($goodsAdd == 1)"}
+        <div class="goods-add " style="color: red">
+            <i class="iconfont" style="color: red">&#xe672;</i></br>{$articleCon.article_goodscount}
+        </div>
+        {else /}
+        <div class="goods-add before-goods-add"><i class="iconfont" id="goodsbefore">&#xe63a;</i></br>
+            {$articleCon.article_goodscount}
+        </div>
+
+        {/if}
+    </div>
+    <div class="comment" id="comments">
+        <div class="comment-input">
+            <div>
+                <div><span>评论</span></div>
+            </div>
+            <div>
+            <textarea rows="5" cols="80">
+
+            </textarea>
+            </div>
+            <div class="comment-user">
+                <div>
+                    <div>
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="usernames"><i class="iconfont">&#xe501;</i></span>
+                            <input type="text" class="form-control  username" placeholder="请输入昵称" id="username"
+                                   aria-describedby="usernames">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="input-group ">
+                            <span class="input-group-addon " id="qqq"><i class="iconfont">&#xe619;</i></span>
+                            <input type="text" class="form-control qq" placeholder="您的qq" id="qq"
+                                   aria-describedby="qqq">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn comment-btn">提交评论</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="comment-list">
+            {if condition="($commentlist==null)"}
+            暂无评论！
+            {/if}
+            {foreach name="commentlist" item="comment"}
+            <div class="comment-unit">
+                <div class="comment-info">
+                    <span><img src="{$comment.comment_headimg}" width="30"></span><span>{$comment.comment_user}</span><span>{$comment.comment_date}</span>
+                    <span>{$comment.comment_floors}楼</span><span style="display: none">{$comment.comment_id}</span>
+                </div>
+                <div class="comment-con">
+                    <span>{$comment.comment_content}</span>
+                </div>
+                <div class="comment-op">
+                    {if condition="($comment.comment_isgoods == 1)"}<span class="after-goods" style="color:red"><i
+                        class="iconfont" style="color: red">&#xe502;</i>&nbsp;赞({$comment.comment_goodscount})</span>
+                    {else /}<span><i class="iconfont">&#xe64c;</i>&nbsp;赞({$comment.comment_goodscount})</span>
+                    {/if}
+                    <span><i class="iconfont">&#xe682;</i>&nbsp;评论</span>
+                </div>
+
+
+                <div class="reply-comment">
+                    {foreach name="comment.comment_reply" item="reply"}
+                    <div class="comment-unit">
+                        <div class="comment-info">
+                        <span><img
+                                src="{$reply.comment_headimg}" width="30"></span><span>{$reply.comment_user}回复{$reply.comment_parent_user}</span><span>{$reply.comment_date}</span>
+                                                    <span style="display: none">{$reply.comment_id}</span>
+                                                </div>
+                                                <div class="comment-con">
+                        <span>{$reply.comment_content}
+                        </span>
+                        </div>
+                        <div class="comment-op">
+                            {if condition="($reply.comment_isgoods ==1)"} <span class="after-goods" style="color:red"><i
+                                class="iconfont" style="color: red">&#xe502;</i>&nbsp;赞({$reply.comment_goodscount})</span>
+                            {else /} <span><i class="iconfont">&#xe64c;</i>&nbsp;赞({$reply.comment_goodscount})</span>
+                            {/if}
+                            <span><i class="iconfont">&#xe682;</i>&nbsp;评论</span></div>
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+            {/foreach}
+
+        </div>
+    </div>
+
+    <div class="page-foot"></div>
+</div>
+
+<script>
+    window.onload = function () {
+        // if ({$goodsAdd} == 1) {
+        //     $(".goods-add").css('color', 'red');
+        //     $('.goods-add').html('<i class="iconfont" id="goodsafter">&#xe672;</i></br>{$articleCon.article_goodscount}').css('display', 'block')
+        // }
+        var xmlbj;
+        if (window.XMLHttpRequest) {
+            xmlbj = new XMLHttpRequest();
+        } else {
+            xmlbj = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        xmlbj.open('GET','{:Url("index/index/addPv",["id"=>$articleCon.article_id])}',true);
+        xmlbj.send()
+
+    }
+
+
+    spans = $('.artd-tags').find('span');
+    // spans=document.getElementsByTagName("span")
+    for (var i = 0; i < spans.length; i++) {
+        var color = Math.random();
+        var r = parseInt((color * (i + 1) * 1234) % 254);
+        var g = parseInt((color * (i + 1) * 4321) % 254);
+        var b = parseInt((color * (i + 1) * 2222) % 254);
+        $(spans[i]).css("background-color", "rgba(" + r + "," + g + "," + b + ",0.1)")
+        $(spans[i]).css("border", "  1px rgba(" + r + "," + g + "," + b + ",1) solid")
+
+    }
+    $('#goodsbefore').click(function () {
+        var goods = $('.goods-add').clone();
+        goods.find('i').remove();
+        // $(this).parent().css('display', 'none');
+        // $('.goods-add').find('i').remove();
+        $('.goods-add').html('<i style="color:red!important;" class="iconfont" id="goodsafter">&#xe672;</i></br>' + (parseInt(goods.text()) + 1)).css('color', 'red');
+        $('.goods-add').removeClass('before-goods-add');
+        $.ajax({
+            type: 'post',
+            data: {'data': JSON.stringify({goods: 1, article_id: "{$articleCon.article_id}"})},
+            dataType: 'json',
+            async: true,
+            url: "{:Url('index/index/goodsAdd')}",
+            success: function (datas) {
+                console.log(datas)
+
+
+            },
+            error: function () {
+                console.log("error")
+            }
+        })
+    })
+    // console.log({$goodsAdd})
+
+    var flag = 0;
+    var $comment_input = '        <div class="comment-input" >' +
+        '                    <div style="display: none">' +
+        '                        <div><span></span></div>' +
+        '                    </div>' +
+        '                    <div>' +
+        '                            <textarea id="comment-replay-text" rows="5" cols="80">' +
+        '' +
+        '                            </textarea>' +
+        '                    </div>' +
+        '                    <div class="comment-user">' +
+        '                        <div>' +
+        '                            <div>' +
+        '                                <div class="input-group ">' +
+        '                                    <span class="input-group-addon" id="replay-username1"><i' +
+        '                                            class="iconfont">&#xe501;</i></span>' +
+        '                                    <input type="text" class="form-control username" placeholder="请输入昵称"' +
+        '                                           aria-describedby="replay-username1">' +
+        '                                </div>' +
+        '                            </div>' +
+        '                            <div>' +
+        '                                <div class="input-group ">' +
+        '                                        <span class="input-group-addon" id="replay-qq1"><i' +
+        '                                                class="iconfont">&#xe619;</i></span>' +
+        '                                    <input type="text" class="form-control qq" placeholder="您的qq"' +
+        '                                           aria-describedby="replay-qq1">' +
+        '                                </div>' +
+        '                            </div>' +
+        '                        </div>' +
+        '' +
+        '                        <div>' +
+        '                            <button class="btn comment-btn">提交评论</button>' +
+        '                        </div>' +
+        '                    </div>' +
+        '' +
+        '                </div>';
+    comment_input = $.parseHTML($comment_input);
+    $('.comment-list').on('click', 'div.comment-op span:nth-child(2)', function () {
+        if ($(this).parent().next().attr('class') != 'comment-input' ) {
+            $(this).parent().after($comment_input);
+            // flag = 1;
+        } else {
+            // $comment_input.remove();
+            $(this).parent().parent().find('.comment-input').remove();
+            // flag = 0;
+        }
+    })
+
+
+    //评论提交
+    var commid = {$commlastid} + 1;
+    $('.comment').on('click', '.comment-btn', function () {
+        var commentext = $(this).parent().parent().parent().find('textarea').val();
+        var username = $(this).parent().parent().parent().find('.username').val();
+        var qq = $(this).parent().parent().parent().find('.qq').val();
+        var artId = "{$articleCon.article_id}";
+        var curtime = formatDate(new Date().getTime());
+        var addcom = null;
+        var info = null;
+        var replyId = null;
+        var index = null;
+        var headImgUrl = "__STATIC__/headimg/" + Math.ceil(Math.random() * 10) + ".jpg";
+        var $thisfourpars = $(this).parent().parent().parent().parent();
+        var tarlink;
+        console.log("imgurl" + headImgUrl);
+        if (commentext == null || commentext.trim(' ') == '' || commentext == '' || commentext == ' ') {
+            alert_fail('提示', '评论内容不能为空！');
+            return false;
+        }
+        if (username == null || username.trim(' ') == '' || username == '' || username == ' ') {
+            alert_fail('提示', '用户名不能为空！');
+            return false;
+        }
+
+        var parentName = $(this).parent().parent().parent().parent().find('.comment-info>span:nth-child(2)').text();
+        if ((index = parentName.indexOf('回')) >= 0) {
+            parentName = parentName.substring(0, index)
+        }
+        if ($thisfourpars.attr('class') == 'comment') {
+            tarlink = $('.comment>.comment-list>.comment-unit:last-child');
+            tarlink.attr('id', 'cur-comment')
+            addcom = $('.comment-list');
+            info = ' <div class="comment-unit">' +
+                '                    <div class="comment-info">' +
+                '                            <span><img src="' + headImgUrl + '" width="30"></span><span>' + username + '</span>' +
+                '                               <span> ' + curtime + '</span> ' +
+                '                               <span style="display: none">' + commid + '</span>' +
+                '                    </div>' +
+                '                    <div class="comment-con">' +
+                '                        <span>' + commentext + '</span>' +
+                '                    </div>' +
+                '                <div class="comment-op"><span><i class="iconfont">&#xe64c;</i>&nbsp;赞(0)</span><span><i' +
+                '                            class="iconfont">&#xe682;</i>&nbsp;评论</span></div>' +
+                '                <div class="reply-comment">' +
+                '                                    </div> </div> ';
+
+            console.log('commlist');
+
+            replyId = -1;
+            commid++;
+            ;
+        } else {
+            if ($thisfourpars.parent().attr('class') == "comment-list") {
+                addcom = $(this).parent().parent().parent().next()
+                console.log('if' + addcom.attr('class'))
+            } else {
+                addcom = $thisfourpars.parent();
+                console.log('else' + addcom.attr('class'))
+            }
+            tarlink = $('.reply-comment>.comment-unit:last-child');
+            tarlink.attr('id', 'cur-comment')
+            // 1763754
+            info = ' <div class="comment-unit " id="cur-comment">' +
+                '                    <div class="comment-info">' +
+                '                             <span><img src="' + headImgUrl + '" width="30"></span>' + '<span>' + username + '回复 ' + parentName + '</span>' +
+                '<span> ' + curtime + '</span> ' +
+                '<span style="display: none">' + commid + '</span>' +
+                '                    </div>' +
+                '                    <div class="comment-con">' +
+                '                        <span>' + commentext + '</span>' +
+                '                    </div>' +
+                '                <div class="comment-op"><span><i class="iconfont">&#xe64c;</i>&nbsp;赞(0)</span><span><i' +
+                '                            class="iconfont">&#xe682;</i>&nbsp;评论</span></div>' +
+                '                     </div>   ';
+            replyId = $(this).parent().parent().parent().parent().find('.comment-info span:last-child ').eq(0).text();
+          //  console.log(replyId)
+           // console.log($(this).parent().parent().parent().parent().attr('class'))
+            // console.log($(this).parent().parent().parent().parent().html())
+            commid++;
+        }
+
+
+        // console.log(commentext+username)
+        $commentId = $thisfourpars.find('.comment-info span:last-child')
+        console.log("comid   :" + replyId)
+        // if(!(parseInt($commentId.text())>0)){
+        //     console.log("aa")v
+        // }
+        $.ajax({
+            type: 'post',
+            data: {
+                'data': JSON.stringify({
+                    commenttext: commentext,
+                    username: username,
+                    qq: qq,
+                    artId: artId,
+                    comment_parent: replyId,
+                    headimgUrl: headImgUrl
+                })
+            },
+            dataType: 'json',
+            url: "{:Url('index/index/addComment')}",
+            success: function (data) {
+                console.log("com" + JSON.stringify(data));
+
+                var html = $.parseHTML(info);
+                addcom.append(html)
+                alert_success_url('提示', '评论成功', '#cur-comment');
+                setTimeout(function () {
+                    tarlink.removeAttr('id');
+                }, 4000)
+                $('textarea').val('');
+                $('.qq').val('');
+                $('.username').val('');
+            },
+            error: function () {
+                alert_fail('提示', '未知错误')
+            }
+
+
+        })
+        // console.log(commentext+qq+username)
+        if ($thisfourpars.attr('class') != 'comment') {
+            $tmpthispars = $(this).parent().parent().parent();
+            setTimeout(function () {
+                $tmpthispars.remove();
+
+            }, 2000)
+
+        }
+    })
+
+    //评论点赞
+    $('.comment-list').on('click', 'div.comment-op span:nth-child(1)', function () {
+        var $goodscommentId = $(this).parent().parent().find('div.comment-info>span:last-child').eq(0).text();
+        var re = $(this).parent().parent().find('div.comment-info:first-child>span:last-child');
+        // console.log("aa" + $(this).parent().parent().html())
+        console.log($goodscommentId)
+        var $thisclone = $(this).clone();
+        $thisclone.find('i').remove();
+        var thistext = $thisclone.text().trim(' ');
+        thistext = parseInt(thistext.substring(2, thistext.length - 1)) + 1;
+        // console.log(thistext)
+        $(this).html('<i class="iconfont" style="color: red">&#xe502;</i>&nbsp;赞(' + thistext + ')').css('color', 'red')
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: {'data': JSON.stringify({comId: $goodscommentId})},
+            url: '{:url("index/index/addCommentGoods")}',
+            success: function (data) {
+                console.log(data)
+            }, error: function () {
+
+            }
+
+
+        })
+    })
+    Prism.plugins.toolbar.registerButton('select-all', function(env) {
+        var button = document.createElement('button');
+        button.innerHTML = '全选';
+
+        button.addEventListener('click', function () {
+            // Source: http://stackoverflow.com/a/11128179/2757940
+            if (document.body.createTextRange) { // ms
+                var range = document.body.createTextRange();
+                range.moveToElementText(env.element);
+                range.select();
+            } else if (window.getSelection) { // moz, opera, webkit
+                var selection = window.getSelection();
+                var range = document.createRange();
+                range.selectNodeContents(env.element);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        });
+
+        return button;
+    });
+    Prism.plugins.toolbar.registerButton('copy-to-clipboard', function (env) {
+        var linkCopy = document.createElement('a');
+        linkCopy.textContent = '复制';
+
+        if (!ClipboardJS) {
+            callbacks.push(registerClipboard);
+        } else {
+            registerClipboard();
+        }
+
+        return linkCopy;
+
+        function registerClipboard() {
+            var clip = new ClipboardJS(linkCopy, {
+                'text': function () {
+                    return env.code;
+                }
+            });
+
+            clip.on('success', function() {
+                linkCopy.textContent = '已复制';
+
+                resetText();
+            });
+            clip.on('error', function () {
+                linkCopy.textContent = 'Press Ctrl+C to copy';
+
+                resetText();
+            });
+        }
+
+        function resetText() {
+            setTimeout(function () {
+                linkCopy.textContent = '复制';
+            }, 5000);
+        }
+    });
+</script>
+{/block}
+

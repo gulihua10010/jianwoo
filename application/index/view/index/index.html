@@ -1,0 +1,119 @@
+{extend name="baseView/index"}
+{block name="main"}
+{if condition="($flag != -1)"}
+<div class="index-position">
+        <span>当前位置:<a href="{:Url(\'index/index/index\')}' ">首页>></a>
+            {if condition="($flag==1||$flag==2)"}
+            <a href="{:Url('index/index/index',['m'=>$menuname.menu_id])}">{$menuname.menu_name}>></a>
+                {if condition="($flag ==1)"}
+                    <a href="{:Url('index/index/index',['m'=>$menuname.menu_id,'t'=>$typename.types_id])}">{$typename.types_content}</a>
+                {/if}
+            {/if}
+            {if condition="($flag ==4)"}
+                标签>>{$tagName}
+            {/if}
+            {if condition="($flag ==0)"}
+            搜索结果:{$keyword}
+            {/if}
+        </span>
+</div>
+{/if}
+<div class="index-main">
+
+    <div class="article-list">
+        {foreach name="article" item="article"}
+        <div class="article-breviary">
+            <div class="art-bre-tit">
+            {if condition="($article.article_type!=null)"}    <span class="art-type">
+                {if condition="($article.article_type.types_content!=null)"}
+                {$article.article_type.types_content}
+                {/if}
+                 {if condition="($article.article_type.menu_name!=null)"}
+                {$article.article_type.menu_name}
+                {/if}
+                 </span>{/if}
+                <span class="art-title" onclick="window.location.href='{:Url(\'index/index/detail\',[\'id\'=>$article.article_id])}'"> {$article.article_title}</span>
+            </div>
+            <div class="art-bre-top">
+                <div class="art-bre-left"
+                     onclick="window.location.href='{:Url(\'index/index/detail\',[\'id\'=>$article.article_id])}'">
+                    <img src="{if condition='($article.article_imgSrc == null)'}//res.jianwoo.cn/jw.jpg
+                    {else /}//{$article.article_imgSrc}
+                    {/if}" width="200" alt="{$article.article_title}">
+                    <div></div>
+                </div>
+                <div class="art-bre-right">
+                    <span class="article-content-bre">{$article.article_bre}</span>
+                </div>
+            </div>
+            <div class="art-bre-info">
+                <div>
+                        <span class="art-author"><i class="iconfont">&#xe67a;</i>&nbsp;{$article.article_author}</span>
+                        <span class="art-date"><i class="iconfont">&#xe65d;</i>&nbsp;{$article.article_pushdate}</span>
+                        <span class="art-readers"><i class="iconfont">&#xe603;</i>&nbsp;{$article.article_readcount}</span>
+                        <span class="art-comment"
+                              onclick="window.location.href='{:Url(\'index/index/detail\',[\'id\'=>$article.article_id])}#comments'">
+                            <i class="iconfont">&#xe682;</i>&nbsp;{$article.article_commentCount}条评论</span>
+                        {if condition="($article.article_isgoods == 1)"}
+                        <span class="art-goods " style="color: red">
+                            <i class="iconfont" style="color: red">&#xe502;</i>&nbsp;{$article.article_goodscount}
+                        </span>
+                        {else /}
+                        <span class="art-goods before-goods-add"><i class="iconfont">&#xe64c;</i>
+                            {$article.article_goodscount}
+                        </span>
+                        <span style="display: none" class="artid">{$article.article_id}</span>
+
+                        {/if}
+                </div>
+                <div><a href="{:Url('index/index/detail',['id'=>$article.article_id])}">阅读全文>></a></div>
+            </div>
+        </div>
+        {/foreach}
+        <div>{$page}</div>
+    </div>
+</div>
+<script>
+    $('.before-goods-add').click(function () {
+        console.log('good')
+        var goods = $(this).clone();
+        goods.find('i').remove();
+        // console.log(parseInt(goods.text()) + 1)
+        // $(this).parent().css('display', 'none');
+        // $('.goods-add').find('i').remove();
+        $(this).html('<i class="iconfont" style="color: red">&#xe502;</i>' + (parseInt(goods.text()) + 1)).css('color', 'red');
+        $(this).removeClass('before-goods-add');
+        var artid = $(this).parent().find('.artid').text();
+        console.log("id" + artid)
+        $.ajax({
+            type: 'post',
+            data: {'data': JSON.stringify({goods: 1, article_id: parseInt(artid)})},
+            dataType: 'json',
+            async: true,
+            url: "{:Url('index/index/goodsAdd')}",
+            success: function (datas) {
+                console.log(datas)
+            },
+            error: function () {
+                console.log("error")
+            }
+        })
+    })
+    $(function () {
+        $('.art-title').mouseover(function (e) {
+            $(this).mousemove(function (e) {
+                var x=e.pageX;
+                var y=e.pageY;
+                var xx=e.screenX;
+                var yy=e.screenY;
+                $(this).after('<span style="color:red" class="tit_alt">'+ $(this).text()+'</span>');
+                $(this).parent().find('.tit_alt').css('position','absolute').css('left',x).css('top',y-50)
+            })
+        });
+        $(document).on('mouseleave','.art-title',function () {
+            // $(this).parent
+            $(this).parent().find('.tit_alt').remove();
+        });
+    })
+</script>
+{/block}

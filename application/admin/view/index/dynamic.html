@@ -1,0 +1,33 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<div class="dynamic">
+    <p>动态</p>
+    <div class="newest-visit">
+        <p>最新访问</p>
+        <ul>
+            {foreach name="visit" item="v"}
+            <li>来自ip为<span>{$v.visit_ip}</span>的网友在 <span>{$v.visit_date}</span>访问了文章
+                <span><a href="{:Url('admin/index/articleEdit',['artid'=>$v.article_id])}">{$v.article_title}</a></span></li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="not-read-comms">
+        <p>未读评论</p>
+        <ul>
+            {if condition="($notreadcomms|sizeof==0)"}
+               <li>暂没有未读评论！</li>
+            {else /}
+                {foreach name="notreadcomms" item="nrc"}
+                <li><span>{$nrc.comment_date}</span><span>{$nrc.comment_user}</span>的网友评论了文章
+                  <span>  <a href="{:Url('admin/index/articleEdit',['artid'=>$nrc.article_id])}">{$nrc.article_title}</a></span>:
+                    <span><a href="{:Url('admin/index/articleEdit',['artid'=>$nrc.article_id])}">{$nrc.comment_content}</a></span></li>
+                {/foreach}
+            {/if}
+        </ul>
+        <div class="page">
+            <div>{$page}</div>
+
+        </div>
+    </div>
+</div>
+{/block}

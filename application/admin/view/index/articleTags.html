@@ -1,0 +1,119 @@
+{extend name="baseView/index"}
+{block name="content"}
+<title>文章标签</title>
+<div class="art-tags">
+    <p>文章标签</p>
+    <div id="tagscontent">
+            <ul>
+                {foreach name="tags" item="tags"}
+                <li>
+                    <span>{$tags.tags_content}</span>
+                    <span style="display: none" class="tags-id">{$tags.tags_id}</span>
+                    <div>
+                        <button class="btn">删除</button>
+                    </div>
+                </li>
+                {/foreach}
+              <li class="addtags"><i class="iconfont">&#xe613;</i></li>
+            </ul>
+
+    </div>
+
+</div>
+<script>
+    $('.addtags').click(function () {
+        var index = layer.open({
+            title: ['添加标签', 'font-size:16px'],
+            type: 1,
+            closeBtn: 2,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['320px', '200px'], //宽高
+            content: '<form id="tagsform" method="post"> ' +
+            '<input type="text" id="addtagsinput" name="addtagsinput" class="form-control addinput">' +
+            '<span id="tips"></span></form>' +
+            '<button class="btn addbtn" type="button" id="addbtnsure">添加</button> ' +
+            '<button class="btn  addbtncal" id="addbtncal">取消</button>'
+        })
+        $('#addbtnsure').click(function () {
+            if ($('#addtagsinput').val() == null || $('#addtagsinput').val().length < 1) {
+                $('#tips').html("标签名不能为空")
+            } else {
+                var formdata = $('#tagsform').serialize();
+                $.ajax({
+                    type: "post",
+                    data: formdata,
+                    async: true,
+                    url: "{:Url('admin/index/addtagsresult')}",
+                    dataType: 'json',
+                    success: function (response) {
+                        // alert(JSON.stringify(response.error))
+                        if (response == null || response == 'undefined') {
+                            alert_fail('提示', '错误1');
+                        } else {
+                            if (JSON.stringify(response.v) == '1') {
+                                alert_success_url('提示', '添加成功', "{:Url('admin/index/articleTags')}");
+
+                            } else {
+
+                                alert_fail('提示', '添加失败');
+                            }
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert_fail('提示', '错误-1');
+
+                        // alert(XMLHttpRequest.status);
+                        // alert(XMLHttpRequest.readyState);
+                        // alert(textStatus);
+                    }
+
+
+                })
+            }
+
+
+        })
+        $('#addbtncal').click(function () {
+            layer.close(layer.index)
+        })
+
+    })
+    $('div.art-tags>div>ul>li>div>button ').click(function () {
+        $a = $(this).parent().parent();
+        $val = $a.children('.tags-id').text();
+        // alert($val);
+        alert_ask('确定要删除吗?', function () {
+            var menuli = $('#menuliform').serialize();
+            $.ajax({
+                type: "post",
+                data: {'data':JSON.stringify({tagsId: $val})},
+                dataType: "json",
+                async: true,
+                url: "{:Url('admin/index/tagsDel')}",
+                success: function (data) {
+                    // alert(JSON.stringify(data))
+                    if (data == null || data == 'undefined') {
+                        alert_fail('提示', '错误1');
+                    } else {
+                        // alert(JSON.stringify(data.v).toString()=='1')
+                        if (JSON.stringify(data.v) == "1") {
+                            // alert(JSON.stringify(data.v))
+                            alert_success_url('提示', '删除成功', "{:Url('admin/index/articleTags')}");
+
+                        } else {
+                            alert_fail('提示', '删除失败');
+                        }
+                    }
+                },
+                error: function () {
+                    alert_fail('提示', '错误-1');
+                }
+
+
+            })
+            // $a.css('display','none');
+            // layer.closeAll();
+        })
+    })
+</script>
+{/block}

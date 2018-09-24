@@ -1,0 +1,326 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<title>评论管理</title>
+<div class="comment-Mg">
+    <p>评论管理</p>
+    <div>
+        <input type="checkbox" id="sel-comms" style="position: relative;top: 10px;">
+        <select class="selectpicker" id="com-op-sel" title="批量操作">
+            <option name="del" value="1">删除</option>
+        </select>
+        <button class="btn" id="apply-op">应用</button>
+    </div>
+    <div class="commmg-table">
+        <table class="table table-hover commmg-list">
+            <tr>
+                <th>文章标题</th>
+                <th>评论用户</th>
+                <th>评论内容</th>
+                <th>回复至</th>
+                <th class="art-date">评论日期<span>
+                    <a style="color: #5bc0de"><i class="iconfont">&#xe655;</i></a>
+                </span></th>
+                <th>操作</th>
+            </tr>
+            {foreach name="comment" item="comm"}
+            <tr>
+                <td style="width: 10%"><span class="comm-arttitle">{$comm.comment_title}</span></td>
+                <td style="width: 15%">
+                    <div class="td-comm-user">
+                        <span class="comm-name">
+                        {$comm.comment_user}
+                        </span><span>
+                        qq:{$comm.comment_qq}
+                        </span>
+                    </div>
+                </td>
+                <td style="width: 30%">{$comm.comment_content}</td>
+                <td><a class="comm-reply"><span class="parent_comm">{$comm.comment_parents}</span></a></td>
+                <td>{$comm.comment_date}</td>
+                <td class="td-btn">
+                    <button class="btn reply">回复</button>
+                    <button class="btn del">删除</button>
+                </td>
+
+                <td style="display:none;" class="comm-id">{$comm.comment_id}</td>
+                <td style="display:none;" class="comm-parent">{$comm.comment_parent}</td>
+                <td style="display:none;" class="comm-artid">{$comm.article_id}</td>
+            </tr>
+
+            {/foreach}
+        </table>
+        <div class="page">
+            {$page}
+
+        </div>
+    </div>
+
+
+</div>
+<script>
+    var $comment_input = '        <tr class="tr-comm-input"  style="height: 200px" >\n' +
+        '                    <td colspan="6" >\n' +
+        '                        <div class="comment-input" >\n' +
+        '                            <div style="display: none">\n' +
+        '                                <div><span></span></div>\n' +
+        '                            </div>\n' +
+        '                            <div>\n' +
+        '                                        <textarea class="comm-content"  rows="5" cols="80">\n' +
+        '\n' +
+        '                                       </textarea>\n' +
+        '                            </div>\n' +
+        '                            <div class="comment-user" style="width: 100%">\n' +
+        '\n' +
+        '                                <div>\n' +
+        '                                    <button class="btn comment-btn">提交评论</button>\n' +
+        '                                </div>\n' +
+        '                            </div>\n' +
+        '\n' +
+        '                        </div>\n' +
+        '                    </td>\n' +
+        '                </tr>\n' +
+        '                ';
+    comment_input = $.parseHTML($comment_input);
+    $('.commmg-list').on('click', '.reply', function () {
+        console.log($(this).parent().next().attr('class'))
+        if ($(this).parent().parent().next().attr('class') != 'tr-comm-input') {
+            $(this).parent().parent().after(comment_input);
+        } else {
+            $(this).parent().parent().next().remove();
+
+        }
+    })
+
+
+    $('.commmg-list').on('click', '.comment-btn', function () {
+        var commid = {$commlastid} + 1;
+        var artId = $(this).parent().parent().parent().parent().parent().prev().find('.comm-artid').text();
+        var commentext = $(this).parent().parent().parent().find('textarea').val();
+        var username = '作者:';
+        var qq = '0000000';
+        var curtime = formatDate(new Date().getTime());
+        var addcom = null;
+        var info = null;
+        var replyId = $(this).parent().parent().parent().parent().parent().prev().find('.comm-id').text();
+        var index = null;
+        var commthis = null;
+        var arttitle = $(this).parent().parent().parent().parent().parent().prev().find('.comm-arttitle').text();
+        var parentcomm = $(this).parent().parent().parent().parent().parent().prev().find('.parent_comm').text();
+        var headImgUrl = "__STATIC__/headimg/" + Math.ceil(Math.random() * 10) + ".jpg";
+        info = ' <tr>\n' +
+            '                <td>' + arttitle + '</td>\n' +
+            '                <td>\n' +
+            '                    <div>\n' +
+            '                        <span class="comm-name">\n' +
+            username +
+            '                        </span><span>qq:' +
+            qq +
+            '</span>\n' +
+            '                    </div>\n' +
+            '                </td>\n' +
+            '                <td>' + commentext + '</td>\n' +
+            '                 <td><a class="comm-reply"><span class="parent_comm">'+parentcomm+'</span></a></td>\n' +
+            '                <td>' + curtime + '</td>\n' +
+            '                <td>\n' +
+            '                        <button class="btn reply">回复</button>\n' +
+            '                        <button class="btn del">删除</button>\n' +
+            '                </td>\n' +
+            '                <td style="display:none;" class="comm-id">' + commid + '</td>\n' +
+            '                <td style="display:none;" class="comm-parent">'+replyId+'</td>\n' +
+            '                <td style="display:none;" class="comm-artid">' + artId + '</td>\n' +
+            '            </tr>';
+        // console.log(replyId);
+        commthis = addcom = $(this).parent().parent().parent().parent().parent();
+        commid++;
+        commAjax({
+            'data': JSON.stringify({
+                commenttext: commentext,
+                username: username,
+                qq: qq,
+                artId: artId,
+                comment_parent: replyId,
+                headimgUrl: headImgUrl
+            })
+        }, addcom, info, commthis);
+
+    });
+
+    function commAjax(data, addcom, info, commthis) {
+        $.ajax({
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            url: "{:Url('index/index/addComment')}",
+            success: function (data) {
+                console.log("com" + JSON.stringify(data));
+
+                var html = $.parseHTML(info);
+                addcom.after(html);
+                alert_success('提示', '回复成功');
+                setTimeout(function () {
+                    $('.comm-content').val('');
+                    $('.qq').val('');
+                    $('.username').val('');
+                    commthis.remove();
+                }, 3000);
+            },
+            error: function () {
+                alert_fail('提示', '未知错误')
+            }
+
+
+        });
+
+    }
+
+    $('.commmg-list').on('click', '.del', function () {
+        var commid = $(this).parent().next().text();
+        alert_ask('确定要删除此评论(所有回复评论也将会全部删除)?', function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                data: {'data': JSON.stringify({commid: commid})},
+                url: '{:Url("admin/index/delComment")}',
+                success: function (data) {
+                    console.log(data);
+                    var url = window.location.href;
+                    alert_success_url('提示', '删除成功', url);
+                },
+                error: function () {
+                    alert_fail('提示', '未知错误')
+                }
+            })
+        })
+
+
+    });
+    $('th.art-date>span').click(function () {
+        var Request = new Object();
+        Request = GetRequest();
+        if (Request['artid'] === undefined || Request['artid'] == null) {
+            Request['artid'] = -1;
+        }
+        if (Request['page'] === undefined) {
+            Request['page'] = 1;
+        }
+        if (Request['dateOrder'] !== 2) {
+            window.location.href = "{:Url('admin/index/commentManagement')}?artid=" + Request['artid'] + "&dateOrder=" + 2 + "&page=" + Request['page']+ "&reply=" + reply;
+        } else {
+            window.location.href = "{:Url('admin/index/commentManagement')}?artid=" + Request['artid'] + "dateOrder=" + 1 + "&page=" + Request['page']+ "&reply=" + reply;
+
+        }
+    });
+    $('#sel-comms').click(function () {
+        if ($(this).is(':checked')) {
+            $('.commmg-list tr:first-child>th:first-child').before('<th><input type="checkbox" class="sel-all"><span>全选</span></th>');
+
+            $('.commmg-list tr').each(function (index) {
+                var commid = $(this).find('.comm-id').text();
+                $(this).find('td:first-child').before('<td><input type="checkbox"  class="sel-comm-check" value=' + commid + '></td>');
+            });
+            $('.commmg-list').on('click', '.sel-all', function () {
+                if ($(this).is(':checked')) {
+                    $('.sel-comm-check').prop('checked', 'checked');
+                    $('table tr:first-child th:first-child span').html('取消全选');
+                } else {
+                    $('.sel-comm-check').removeAttr('checked');
+                    $('table tr:first-child th:first-child span').html('全选');
+
+                }
+            });
+            $('.commmg-list tr>td:first-child').css('width', '8%');
+        } else {
+            $('.commmg-list tr:first-child>th:first-child').remove();
+
+            $('.commmg-list tr').each(function (index) {
+                $(this).find('td:first-child').remove();
+            });
+        }
+    });
+
+    $('#apply-op').click(function () {
+        var selval = $('#com-op-sel').val();
+        // console.log(selval)
+        var commids = new Array();
+        if (selval == undefined || selval == '') {
+            alert_fail('提示', '未选择操作')
+        } else {
+            $('.sel-comm-check:checked').each(function (index, ele) {
+                // console.log($(this).val())
+                commids[index] = $(this).val();
+            })
+            // console.log(commids);
+            if (commids.length == 0) {
+                alert_fail('提示', '你未选择评论')
+            } else {
+                if (selval == 1) {
+                    selOp("{:Url('admin/index/delComment')}", commids);
+                }
+
+
+            }
+        }
+    });
+
+    function selOp(url, commids) {
+        for (var i = 0; i < commids.length; i++) {
+            ajaxs({'data': JSON.stringify({commid: commids[i]})}, url, function () {
+                alert_success('提示', '操作成功')
+            })
+        }
+        setTimeout(function () {
+            $('.sel-comm-check:checked').each(function (index, ele) {
+                // console.log($(this).val())
+                $(this).parent().parent().remove()
+            })
+        }, 2000)
+    }
+
+    function ajaxs(data, url, succ) {
+        var re = 0;
+        $.ajax({
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            url: url,
+            success: function (data) {
+                console.log(data)
+                if (JSON.stringify(data) == '1') {
+                    succ();
+                } else {
+                    alert_fail('提示', '操作失败')
+
+                }
+            }
+            , error: function () {
+                alert_fail('提示', '未知错误')
+            }
+
+        })
+    }
+
+    $('.commmg-list').on('click','.comm-reply',function () {
+        Request = new Object();
+        Request = GetRequest();
+        var reply = $(this).parent().parent().find('.comm-parent').text();
+        var artid = $(this).parent().parent().find('.comm-artid').text();
+        if (Request['dateOrder'] === undefined) {
+            Request['dateOrder'] = 1
+        }
+        if (Request['artid'] === undefined || Request['artid'] == null) {
+            Request['artid'] = -1;
+        }
+        if (Request['page'] === undefined) {
+            Request['page'] = 1;
+        }
+        if ($(this).find('span').text()=='文章'){
+            var url= "{:Url('admin/index/articleEdit',['artid'=>artids])}";
+            url=url.replace('artids',artid);
+            window.location.href = url;
+        }else{
+            window.location.href = "{:Url('admin/index/commentManagement')}?artid=" + Request['artid'] + "&dateOrder=" + 2 + "&page=" + Request['page'] + "&reply=" + reply;
+
+        }
+    })
+</script>
+{/block}

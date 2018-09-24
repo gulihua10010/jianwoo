@@ -1,0 +1,174 @@
+{extend name="baseView/index"/}
+{block name="content"}
+<title>文章回收站</title>
+<div class="recycleBin">
+    <p>文章回收站</p>
+    <div>
+        <span>
+            <input style="position: relative;top:5px;" type="checkbox" id="sel-art">
+            <select class="selectpicker" id="art-op-sel" title="批量操作">
+             <option value="1">删除</option>
+             <option value="2">恢复至草稿</option>
+            </select>
+            <button class="btn" id="art-op">应用</button>
+          </span>
+    </div>
+    <div class="art-list">
+        <table class="table table-hover table-artlist">
+            <tr>
+                <th>标题</th>
+                <th>作者</th>
+                <th>分类</th>
+                <th class="art-date">删除日期<span>
+                    <a style="color: #5bc0de"><i class="iconfont">&#xe655;</i></a>
+                </span></th>
+                <th>操作</th>
+                <th style="display: none"></th>
+            </tr>
+
+            {foreach name="article" item="article"}
+            <tr>
+                <td class="td-title">{$article.article_title}</td>
+                <td class="td-author">{$article.article_author}</td>
+                <td>{$article.article_type.types_content}</td>
+                <td>{$article.article_pushdate}</td>
+                <td class="table-btn">
+                    <button class="btn restore">恢复至草稿</button>
+                    <button class="btn  del">删除</button>
+                </td>
+                <td style="display: none" class="td-artid">{$article.article_id}</td>
+            </tr>
+            {/foreach}
+        </table>
+        <div> {$page}</div>
+    </div>
+</div>
+<script>
+    $('#sel-art').click(function () {
+        if ($(this).is(':checked')) {
+            $('table tr:first-child th:first-child').before('<th><input type="checkbox" class="sel-all"><span>全选</span></th>')
+            $('table tr').each(function (index, ele) {
+                var artid = $(this).find('td.td-artid').text();
+                $(this).find('td:first-child').before(' <td><input type="checkbox" class="sel-art-check" value=' + artid + '> </td> ')
+            });
+            $('table tr>td:first-child').css('width', '8%');
+            $('.art-list').on('click','.sel-all',function () {
+                if ($(this).is(':checked')){
+                    $('.sel-art-check').prop('checked','checked');
+                    $('table tr:first-child th:first-child span').html('取消全选');
+                }else{
+                    $('.sel-art-check').removeAttr('checked');
+                    $('table tr:first-child th:first-child span').html('全选');
+
+                }
+            });
+        } else {
+            $('table tr:first-child th:first-child').remove()
+            $('table tr').each(function (index, ele) {
+                $(this).find('td:first-child').remove()
+            })
+        }
+    });
+    $('th.art-date>span').click(function () {
+        var Request=new Object();
+        Request=GetRequest();
+        if (Request['dateOrder']!=2){
+            window.location.href= "{:Url('admin/index/myArticle')}?dateOrder="+2;
+        }else {
+            window.location.href= "{:Url('admin/index/myArticle')}?dateOrder="+1;
+
+        }
+    });
+    $('#art-op').click(function () {
+        var selval = $('#art-op-sel').val();
+        // console.log(selval)
+        var artids = new Array();
+        if (selval == undefined || selval == '') {
+            alert_fail('提示', '未选择操作')
+        } else {
+            $('.sel-art-check:checked').each(function (index, ele) {
+                // console.log($(this).val())
+                artids[index] = $(this).val();
+            });
+            console.log(artids)
+            if (artids.length === 0) {
+                alert_fail('提示', '你未选择文章')
+            } else {
+                if (selval == 1) {
+                    alert_ask('确定要永久删除此文章！(此操作不可恢复)?',function () {
+                        selOp("{:Url('admin/index/delArt')}", artids);
+
+                    });
+                } else if (selval == 2) {
+                    selOp("{:Url('admin/index/restore')}", artids)
+                }
+
+
+            }
+        }
+    });
+
+    function ajaxs(data, url, succ) {
+        var re = 0;
+        $.ajax({
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            url: url,
+            success: function (data) {
+                console.log(data)
+                if (JSON.stringify(data) == '1') {
+                    succ();
+                } else {
+                    alert_fail('提示', '操作失败')
+
+                }
+            }
+            , error: function () {
+                alert_fail('提示', '未知错误')
+            }
+
+        })
+    }
+
+    function selOp(url, artids) {
+        for (var i = 0; i < artids.length; i++) {
+            ajaxs({'data': JSON.stringify({artid: artids[i]})}, url, function () {
+                alert_success('提示', '操作成功')
+            })
+        }
+        setTimeout(function () {
+            $('.sel-art-check:checked').each(function (index, ele) {
+                // console.log($(this).val())
+                $(this).parent().parent().remove()
+            })
+        }, 2000)
+    }
+    $('.restore').click(function () {
+        var artid = $(this).parent().next().text();
+        var curart = $(this).parent().parent();
+        var re = ajaxs({'data': JSON.stringify({artid: artid})}, "{:Url('admin/index/restore')}", function () {
+            setTimeout(function () {
+                curart.remove();
+            },2200);
+            alert_success('提示', '操作成功')
+
+        })
+    });
+    $('.del').click(function () {
+        var artid = $(this).parent().next().text();
+        var curart = $(this).parent().parent();
+        alert_ask('确定要永久删除此文章！(此操作不可恢复)?', function () {
+            var re = ajaxs({'data': JSON.stringify({artid: artid})}, "{:Url('admin/index/delArt')}", function () {
+                setTimeout(function () {
+                    curart.remove();
+                },2200);
+                alert_success('提示', '操作成功')
+
+            })
+
+
+        })
+    });
+</script>
+{/block}

@@ -1,0 +1,111 @@
+ <div class="calendar">
+     <table>
+         <thead><tr><td colspan="7"  > </td></tr></thead>
+         <tbody id="cal-tb">
+            <tr class="cal-week">
+                <td><a>日</a></td>
+                <td><a>一</a></td>
+                <td><a>二</a></td>
+                <td><a>三</a></td>
+                <td><a>四</a></td>
+                <td><a>五</a></td>
+                <td><a>六</a></td>
+            </tr>
+         </tbody>
+         <tfoot id="cal-foot"><tr><td colspan="7"></td></tr></tfoot>
+     </table>
+
+ </div>
+
+ <script>
+     $(document).ready(function () {
+        var  artdays={$artdays};
+
+
+         var d=new Date();
+         var year=d.getFullYear();
+         var mon=d.getMonth();
+         var day=d.getDate();
+         var week=d.getDay();
+
+         calShow(year,mon,day);
+        function calShow(year,mon) {
+            var df=new Date(year,mon,1);
+            var firstdayweek=df.getDay();
+            var dayadd=1;
+            var  mondays=getMondays(year,mon+1);
+            $('.calendar table>thead>tr>td').append( '<a>'+ (year+"年"+(mon+1)+"月") +"</a>" );
+            for (var i=0;i<=5;i++){
+                $('.calendar table>tbody').append('<tr></tr>');
+                for (var j = 0; j < 7; j++) {
+                    if (firstdayweek > j && i === 0) {
+                        $('.calendar table>tbody>tr:last-child').append('<td></td>');
+                    } else {
+                        if (dayadd<=mondays){
+                            $('.calendar table>tbody>tr:last-child').append('<td><a>' + (dayadd++) + '</a></td>');
+                            if (dayadd-1===new Date().getDate()&&mon===new Date().getMonth()&&year===new Date().getFullYear()){
+                                $('.calendar table>tbody>tr:last-child>td:last-child>a').addClass('cal-today');
+                            }
+                            for (index in artdays){
+                                var pubtime=new Date(artdays[index]['article_pushdate']);
+                                if (pubtime.getFullYear()===year&&pubtime.getMonth()===mon&&pubtime.getDate()===dayadd-1){
+                                    $('.calendar table>tbody>tr:last-child>td:last-child>a').addClass('cal-artpub');
+                                    var url='{:Url("index/index/index",["d"=>ddddd])}';
+                                    url=url.replace('ddddd',year+""+(mon+1<10?'0'+(mon+1):(mon+1))+(dayadd-1<10?'0'+(dayadd-1):(dayadd-1)));
+                                    $('.calendar table>tbody>tr:last-child>td:last-child>a'). attr('href',url);
+                                }
+                            }
+
+                        }else{
+                            $('.calendar table>tbody>tr:last-child').append('<td></td>');
+                        }
+                    }
+                }
+
+            }
+            $('#cal-tb').trigger('create');
+            $('#cal-foot>tr>td').append("<a class='pre-mon'><<"+(mon===0?12:mon)+"月</a>");
+            $('#cal-foot>tr>td').append("<a class='next-mon'>>>"+(mon+2===13?1:mon+2)+"月</a>");
+
+
+
+        }
+         var tmon=mon;
+         var tyear=year;
+         $('.calendar').on('click','.pre-mon',function () {
+             $('.calendar table>thead>tr>td>a').remove();
+             $('.calendar table>tfoot>tr>td>a').remove();
+             $('.calendar table>tbody>tr:not(.cal-week)').remove();
+             if (--tmon<0){
+                 tmon=11;
+                 tyear--;
+             }
+             calShow(tyear,tmon);
+         });
+         $('.calendar').on('click','.next-mon',function () {
+             $('.calendar table>thead>tr>td>a').remove();
+             $('.calendar table>tfoot>tr>td>a').remove();
+             $('.calendar table>tbody>tr:not(.cal-week)').remove();
+
+             if (++tmon>11){
+                 tmon=0;
+                 tyear++;
+             }
+             calShow(tyear,tmon);
+         });
+        function  isloop(year) {
+            if(year%4===0&&year%100!==0||year%400===0){
+                return true
+            }else{
+                return false;
+            }
+        }
+        function  getMondays(year,mon) {
+            var day=new Date(year,mon,0);
+            return day.getDate();
+        }
+
+     })
+
+
+ </script>

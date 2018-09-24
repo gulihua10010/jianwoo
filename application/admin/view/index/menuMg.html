@@ -1,0 +1,462 @@
+{extend name="baseView/index"/}
+{block name="content"}
+
+<title>菜单管理</title>
+<script>
+    window.onload = function () {
+        $("#menucheck").click(function () {
+            if ($(this).is(':checked')) {
+                menuEdit();
+
+            } else {
+                $('div.menu ul>li>div span:nth-child(2)').css('display', 'none');
+                $(function () {
+                    $('.sortable').sortable('destroy')
+                })
+
+            }
+        })
+
+        function menuEdit() {
+            $('div.menu ul>li>div span:nth-child(1)').css('cursor', 'text');
+            $('div.menu ul>li>div span:nth-child(2)').css('display', 'inline-block');
+            var index = new Array();
+            // index[0]=new Array();
+            // index[1]=new Array();
+            $(function () {
+                $('.sortable').sortable({
+                    cursor: 'move',
+                    items: '.sorts',
+                    // start: function () {
+                    //     for (var i = 0; i < $('.sorts').length; i++) {
+                    //
+                    //         var indextext = $('.sorts').children('#menuIndex').eq(i).text();
+                    //         console.log("start:"+$('.sorts').children('#menuIndex').eq(i).text());
+                    //         index[0][i] = indextext;
+                    //     }
+                    // },
+                    update: function (event, ui) {
+
+                        for (var i = 0; i < $('.sorts').length; i++) {
+
+                            var indextext = $('.sorts').children('#menuVal').eq(i).text();
+                            console.log("update:" + $('.sorts').children('#menuVal').eq(i).text());
+                            index[i] = indextext;
+                        }
+                        //
+                        // index=JSON.stringify(index);
+                        console.log(index)
+                        // indexjs=index.replace(/\\/g,"");
+                        // $('#menuli').val(index);
+                        // console.log($('#menuli').val());
+                        // formdata = $('#menuliform').serialize();
+                        $.ajax({
+                            type: 'post',
+                            data: {'index': JSON.stringify({update: index})},
+                            url: "{:Url('admin/index/menuUpdateindex')}",
+                            dataType: 'json',
+                            async: true,
+                            success: function (data) {
+                                console.log("success" + JSON.stringify(data))
+                            }
+
+                        })
+
+                    },
+                }).disableSelection();
+            })
+
+
+            //修改菜单名字
+            $('div.menu>ul>li>div span:nth-child(1)').click(function () {
+                $a = $(this).parent().parent();
+                $val = $a.children('#menuVal').text();
+                var menuName=$(this).text();
+                var index = layer.open({
+                    title: ['修改菜单名', 'font-size:16px'],
+                    type: 1,
+                    closeBtn: 2,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['320px', '200px'], //宽高
+                    content: '<form id="menuform" method="post"> ' +
+                    '<input type="text" id="menuinput" name="menuinput"  class="form-control addinput">' +
+                    '<input type="text" id="menu-id" name="menuid" style="display: none">' +
+                    '<span id="tips"></span></form>' +
+                    '<button class="btn addbtn" type="button" id="menubtnsure">添加</button> ' +
+                    '<button class="btn  addbtncal" id="menubtncal">取消</button>'
+                })
+                    $("#menuinput").val(menuName);
+                $('#menubtnsure').click(function () {
+                    if ($('#menuinput').val() == null || $('#menuinput').val().length < 1) {
+                        $('#tips').html("菜单名不能为空")
+                    } else {
+                        $('#menu-id').val($val);
+                        var formdata = $('#menuform').serialize();
+                        $.ajax({
+                            type: "post",
+                            data: formdata,
+                            async: true,
+                            url: "{:Url('admin/index/updateMenuName')}",
+                            dataType: 'json',
+                            success: function (response) {
+                                // alert(JSON.stringify(response.error))
+                                // console.log(response)
+                                if (response == null || response == 'undefined') {
+                                    alert_fail('提示', '错误1');
+                                } else {
+                                    if (JSON.stringify(response.v) == '1') {
+                                        alert_success_url('提示', '修改成功', "{:Url('admin/index/menuMg')}");
+
+                                    } else {
+                                        alert_fail('提示', '修改失败');
+
+                                    }
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert_fail('提示', '错误-1');
+
+                                // alert(XMLHttpRequest.status);
+                                // alert(XMLHttpRequest.readyState);
+                                // alert(textStatus);
+                            }
+
+
+                        })
+                    }
+
+
+                })
+                $('#menubtncal').click(function () {
+                    layer.close(layer.index)
+                })
+
+            })
+            //修改类别名字
+            $('div.menu>ul>li>ul>li>div span:nth-child(1)').click(function () {
+                $a = $(this).parent().parent();
+                $val = $a.children('#typeVal').text();
+                var typeName=$(this).text();
+                var index = layer.open({
+                    title: ['修改类别名', 'font-size:16px'],
+                    type: 1,
+                    closeBtn: 2,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['320px', '200px'], //宽高
+                    content: '<form id="menuform" method="post"> ' +
+                    '<input type="text" id="typeinput" name="typeinput" class="form-control addinput">' +
+                    '<input type="text" id="type-id" name="typeid" style="display: none">' +
+                    '<span id="tips"></span></form>' +
+                    '<button class="btn addbtn" type="button" id="menubtnsure">添加</button> ' +
+                    '<button class="btn  addbtncal" id="addmenubtncal">取消</button>'
+                })
+                $("#typeinput").val(typeName    );
+                $('#menubtnsure').click(function () {
+                    if ($('#typeinput').val() == null || $('#typeinput').val().length < 1) {
+                        $('#tips').html("类别名不能为空")
+                    } else {
+                        $('#type-id').val($val);
+                        var formdata = $('#menuform').serialize();
+                        $.ajax({
+                            type: "post",
+                            data: formdata,
+                            async: true,
+                            url: "{:Url('admin/index/updateTypeName')}",
+                            dataType: 'json',
+                            success: function (response) {
+                                // alert(JSON.stringify(response.error))
+                                // console.log(response)
+                                if (response == null || response == 'undefined') {
+                                    alert_fail('提示', '错误1');
+                                } else {
+                                    if (JSON.stringify(response.v) == '1') {
+                                        alert_success_url('提示', '修改成功', "{:Url('admin/index/menuMg')}");
+
+                                    } else {
+                                        alert_fail('提示', '修改失败');
+
+                                    }
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert_fail('提示', '错误-1');
+
+                                // alert(XMLHttpRequest.status);
+                                // alert(XMLHttpRequest.readyState);
+                                // alert(textStatus);
+                            }
+
+
+                        })
+                    }
+
+
+                })
+                $('#menubtncal').click(function () {
+                    layer.close(layer.index)
+                })
+
+            })
+        }
+
+
+    }
+
+
+</script>
+<div class="menu">
+    <p>添加菜单和子菜单（类别）</p>
+    <span> <input id="menucheck" type="checkbox"><label
+            for="menucheck">编辑菜单</label></span>
+    <span>首页</span>
+    <ul class="sortable">
+
+        {if condition="$menu neq null"}
+        {foreach name="homemenu" item="homemenu"}
+        <li class="sorts">
+            <div>
+                <span>{$homemenu.menu_name}</span>
+                <span style="display: none">×</span>
+            </div>
+            <span id="menuVal" style="display: none">{$homemenu.menu_id}</span>
+            <ul>
+
+                {foreach name="homemenu.submenu" item="submenu"}
+                <li>
+                    <div>
+                        <span>{$submenu.types_content}</span>
+                        <span style="display: none">×</span>
+                    </div>
+                    <span id="typeVal" style="display: none">{$submenu.types_id}</span>
+
+                </li>
+                {/foreach}
+
+                <li class="addtypebtn {$homemenu.menu_id}"><i class="iconfont">&#xe613;</i></li>
+
+            </ul>
+
+        </li>
+        {/foreach}
+        {/if}
+        {if condition="$menuCount elt 9"}
+        <li id="addmenubtn"><i class="iconfont">&#xe613;</i></li>
+        {/if}
+    </ul>
+    <div style="display:none;">
+        <form id="menuliform" method="post">
+            <input name="menuli" id="menuli" class="text">
+        </form>
+    </div>
+    <div style="display:none;">
+        <form id="typeliform" method="post">
+            <input name="typeli" id="typeli" class="text">
+        </form>
+    </div>
+
+</div>
+<script>
+
+
+    // 添加菜单
+    $('#addmenubtn').click(function () {
+        var index = layer.open({
+            title: ['添加菜单', 'font-size:16px'],
+            type: 1,
+            closeBtn: 2,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['320px', '200px'], //宽高
+            content: '<form id="menuform" method="post"> ' +
+            '<input type="text" id="addmenuinput" name="addmenuinput" class="form-control addinput">' +
+            '<span id="tips"></span></form>' +
+            '<button class="btn addbtn" type="button" id="addmenubtnsure">添加</button> ' +
+            '<button class="btn  addbtncal" id="addmenubtncal">取消</button>'
+        })
+        $('#addmenubtnsure').click(function () {
+            if ($('#addmenuinput').val() == null || $('#addmenuinput').val().length < 1) {
+                $('#tips').html("菜单名不能为空")
+            } else {
+                var formdata = $('#menuform').serialize();
+                $.ajax({
+                    type: "post",
+                    data: formdata,
+                    async: true,
+                    url: "{:Url('admin/index/addmenuresult')}",
+                    dataType: 'json',
+                    success: function (response) {
+                        // alert(JSON.stringify(response.error))
+                        if (response == null || response == 'undefined') {
+                            alert_fail('提示', '错误1');
+                        } else {
+                            if (JSON.stringify(response.error) == 'false') {
+                                alert_success_url('提示', '添加成功', "{:Url('admin/index/menuMg')}");
+
+                            } else {
+
+                                alert_fail('提示', '添加失败');
+                            }
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert_fail('提示', '错误-1');
+
+                        // alert(XMLHttpRequest.status);
+                        // alert(XMLHttpRequest.readyState);
+                        // alert(textStatus);
+                    }
+
+
+                })
+            }
+
+
+        })
+        $('#addmenubtncal').click(function () {
+            layer.close(layer.index)
+        })
+    })
+    //菜单删除
+    $('div.menu ul>li>div span:nth-child(2)').click(function () {
+        $a = $(this).parent().parent();
+        $val = $a.children('#menuVal').text();
+        // alert($val);
+        // $('#menuli').val($val);
+        // alert( $('#menuli').val());
+        alert_ask('确定要删除吗?菜单下的文章将移至首页默认栏目下', function () {
+            // var menuli = $('#menuliform').serialize();
+            $.ajax({
+                type: "post",
+                data: {'data':JSON.stringify({menuId:$val})},
+                dataType: "json",
+                async: true,
+                url: "{:Url('admin/index/menuDel')}",
+                success: function (data) {
+                    // alert(JSON.stringify(data))
+                    if (data == null || data == 'undefined') {
+                        alert_fail('提示', '错误1');
+                    } else {
+                        // alert(JSON.stringify(data.v).toString()=='1')
+                        if (JSON.stringify(data.v) == "1") {
+                            // alert(JSON.stringify(data.v))
+                            alert_success_url('提示', '删除成功', "{:Url('admin/index/menuMg')}");
+
+                        } else {
+                            alert_fail('提示', '删除失败');
+                        }
+                    }
+                },
+                error: function () {
+                    alert_fail('提示', '错误-1');
+                }
+
+
+            })
+            // $a.css('display','none');
+            // layer.closeAll();
+        })
+    })
+    //添加类别
+    $('.addtypebtn').click(function () {
+        var menuid = $(this).parent().parent().children('#menuVal').text();
+        var index = layer.open({
+            title: ['添加类别(子菜单)', 'font-size:16px'],
+            type: 1,
+            closeBtn: 2,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['320px', '200px'], //宽高
+            content: '<form id="typeform" method="post"> ' +
+            '<input type="text" id="addtypeinput" name="addtypeinput" class="form-control addinput">' +
+            '<input type="text" id="type-menuid" name="menuid" style="display: none">' +
+            '<span id="tips"></span></form>' +
+            '<button class="btn addbtn" type="button" id="addtypebtnsure">添加</button> ' +
+            '<button class="btn  addbtncal" id="addtypebtncal">取消</button>'
+        })
+        $('#addtypebtnsure').click(function () {
+            if ($('#addtypeinput').val() == null || $('#addtypeinput').val().length < 1) {
+                $('#tips').html("类别名不能为空")
+            } else {
+                // alert( menuid)
+                $('#type-menuid').val(menuid);
+                // alert( $('#type-menuid').val())
+                var formdata = $('#typeform').serialize();
+                $.ajax({
+                    type: "post",
+                    data: formdata,
+                    async: true,
+                    url: "{:Url('admin/index/addtypeResult')}",
+                    dataType: 'json',
+                    success: function (response) {
+                        // alert(JSON.stringify(response.error))
+                        if (response == null || response == 'undefined') {
+                            alert_fail('提示', '错误1');
+                        } else {
+                            if (JSON.stringify(response.error) == 'false') {
+                                alert_success_url('提示', '添加成功', "{:Url('admin/index/menuMg')}");
+
+                            }else {
+                                alert_fail('提示', '添加失败');
+                            }
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert_fail('提示', '错误2');
+                        // alert(XMLHttpRequest.status);
+                        // alert(XMLHttpRequest.readyState);
+                        // alert(textStatus);
+                    }
+
+
+                })
+            }
+
+
+        })
+        $('#addtypebtncal').click(function () {
+            layer.close(layer.index)
+        })
+    })
+
+    $('div.menu ul>li>ul>li>div span:nth-child(2)').click(function () {
+        $a = $(this).parent().parent();
+        $val = $a.children('#typeVal').text()
+        // alert($val);
+        // $('#typeli').val($val);
+        // alert( $('#menuli').val());
+        alert_ask('确定要删除吗?类别下的文章将移至首页默认栏目下。', function () {
+            // var menuli = $('#typeliform').serialize();
+            $.ajax({
+                type: "post",
+                data: {'data':JSON.stringify({typeId:$val})},
+                dataType: "json",
+                async: true,
+                url: "{:Url('admin/index/typeDel')}",
+                success: function (data) {
+                    // alert(JSON.stringify(data))
+                    if (data == null || data == 'undefined') {
+                        alert_fail('提示', '错误1');
+                    } else {
+                        // alert(JSON.stringify(data.v).toString()=='1')
+                        if (JSON.stringify(data.v) == "1") {
+                            // alert(JSON.stringify(data.v))
+                            alert_success_url('提示', '删除成功', "{:Url('admin/index/menuMg')}");
+
+                        }else {
+                            alert_fail('提示', '删除失败');
+                        }
+                    }
+                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert_fail('提示', '错误2');
+                    // alert(XMLHttpRequest.status);
+                    // alert(XMLHttpRequest.readyState);
+                    // alert(textStatus);
+                }
+
+
+
+            })
+            // $a.css('display','none');
+            // layer.closeAll();
+        })
+    })
+</script>
+{/block}

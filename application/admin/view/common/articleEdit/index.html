@@ -1,0 +1,441 @@
+<div class="choosetags">
+    <p>文章标签</p>
+    <div class="choosed">
+        {foreach name="arttags" item="arttags"}
+        <span>{$arttags.tags_content}<span class="tags-id" style="display: none">{$arttags.tags_id}</span><a>×</a></span>
+
+        {/foreach}
+    </div>
+    <div></div>
+    <div class="tags">
+        {foreach name="tags" item="tags"}
+        <span>{$tags.tags_content}<span class="tags-id" style="display: none">{$tags.tags_id}</span></span>
+
+        {/foreach}
+    </div>
+</div>
+<div class="articletyle">
+    <p>文章分类</p>
+    <label>请选择文章分类:</label>
+    <div class="select">
+        <select class="selectpicker" id="sel-type" data-live-search="true">
+            {foreach name="types" item="types"}
+            <option style="font-weight: bold;color: black" value="-{$types.menu_id}">{$types.menu_name}</option>
+            {foreach name="types.subtype" item="sutypes"}
+            <option style="color: #777" value="{$sutypes.types_id}">{$sutypes.types_content}</option>
+            {/foreach}
+            {/foreach}
+        </select>
+    </div>
+
+</div>
+<div class="articleimg">
+    <p>缩略图</p>
+    <div class="selimg">
+
+        <div class="layui-upload ">
+            <button type="button" class="layui-btn" id="test1">上传图片</button>
+            <div class="layui-upload-list imgupload">
+                <img class="layui-upload-img" {if condition='($article.article_imgSrc !=null )'}src="//{$article.article_imgSrc}" {/if}id="breimg" width="270" style="margin-left: 5px">
+                <p id="demoText"></p>
+                <input style="visibility: hidden" id="imgsrc" name="Img" value=""/>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="published">
+    <p>文章发布</p>
+    <div>
+        <span style="text-space: 0">当前状态:
+        {if condition="($article.article_status==0)"}
+            草稿
+            {/if}
+             {if condition="($article.article_status==1)"}
+            已发布
+            {/if}
+        </span>
+        <button class="btn" id="articlePreview">文章预览</button>
+    </div>
+    <div></div>
+    <a><i class="iconfont">&#xe606;</i> 公开度：<span id="published-public">公开</span></a>&nbsp;<a id="edit">编辑</a>
+    <div id="ispublic">
+        <form id="ispublic-form" method="post">
+        <span><input class="form-control ispublic-radio"  id="public" type="radio" name="isPublic" value="1"><label
+                for="public">公开</label></span>
+            <span> <input class="form-control" id="hometop" type="checkbox" value="2"><label
+                    for="hometop">将文章置于首页顶端</label></span>
+            <span> <input class="form-control ispublic-radio" id="passw" name="isPublic" value="-1" type="radio"><label
+                    for="passw">密码保护</label></span>
+            <span> 密码:<input class="form-control" type="text" id="passw-content"><span></span></span>
+            <span> <input class="form-control ispublic-radio" id="secret" name="isPublic" value="0" type="radio"><label
+                    for="secret">私密</label></span>
+            <div id="btns0" style="display: block">
+                <button class="btn" id="btn-ispublic-sure">确定</button>
+                <button class="btn">取消</button>
+            </div>
+        </form>
+    </div>
+    <div></div>
+    <div>
+        <span><input type="checkbox" class="form-control" checked="checked" id="is-comment"> <label for="is-comment">是否可以评论</label></span>
+    </div>
+
+    <div></div>
+    <div id="btns1">
+        <a href="#">取消</a>
+        <button class="btn">移至回收站</button>
+        {if condition="($article.article_status==0)"}
+        <button class="btn" id="published-save">保存</button>
+        <button class="btn" id="published-pub">发布</button>
+        {/if}
+        {if condition="($article.article_status==1)"}
+        <button class="btn" id="published-update">更新</button>
+        {/if}
+    </div>
+</div>
+<div class="end"></div>
+<script>
+
+    $(function () {
+        $('.selectpicker').selectpicker({
+            noneSelectedText: '请选择类别',
+            title:"请选择类别"
+        });
+    });
+    var ispublic='{$article.article_public}';
+    $('#sel-type').val('{$article.article_typeid}');
+    $('.ispublic-radio').each(function (index) {
+        ispublic==2?1:ispublic;
+        if ($(this).val()==ispublic){
+            $(this).attr("checked", "checked");
+        }
+    })
+    if (ispublic==2){
+        $('#hometop').attr('checked','checked');
+    }else if(ispublic==-1){
+        $('#passw-content').val('{$article.article_password}');
+        $('#published-public').text('密码保护')
+    }else if(ispublic==0){
+        $('#published-public').text('私密');
+
+    }
+    if ('{$article.article_iscomment}'==1){
+        $('#is-comment').attr('checked','checked');
+    }
+
+    spans = $('.choosetags').find('span');
+    for (var i = 0; i < spans.length; i++) {
+        var color = Math.random();
+        var r = parseInt((color * (i + 1) * 1234) % 254);
+        var g = parseInt((color * (i + 1) * 4321) % 254);
+        var b = parseInt((color * (i + 1) * 2222) % 254);
+        $(spans[i]).css("background-color", "rgba(" + r + "," + g + "," + b + ",0.1)");
+        $(spans[i]).css("border", "  1px rgba(" + r + "," + g + "," + b + ",1) solid") ;
+
+    }
+    $('.choosed').on('click','a',function () {
+        $(this).parent().remove();
+    })
+    // tags = $('.tags>span');
+    // for (var i = 0; i < tags.length; i++) {
+    $('.tags>span').click(function () {
+        var flag = 0, choosed = $('.choosed>span');
+        // var obj=$(choosed[0]).clone();
+        // obj.find('a').remove();
+        // alert(choosed.length)
+        // alert(obj.text()+","+ $(this).text())
+        for (var i = 0; i < choosed.length; i++) {
+            var obj = $(choosed[i]).clone();
+            obj.find('a').remove();
+            // console.log("a"+obj.text());
+            // console.log("this"+$(this).text());
+            if (obj.text() == $(this).text()) {
+                flag = 1;
+            }
+        }
+        if (!flag) {
+            var choosed = $('.choosed');
+            var add = $('<span></span>');
+            var tagschoosed = $(this).clone();
+            // tagschoosed.find('span').remove()
+            //  console.log(tagschoosed.html())
+            tagschoosed.html($(this).html() + '<a>×</a>').appendTo(choosed);
+            // console.log(choosed.html())
+        }
+
+
+        // }
+    })
+    var status1 = 0;
+    $('#edit').click(function () {
+        console.log(status1)
+        if (status1 == 0) {
+            $('#ispublic').css("display", "block");
+            status1 = 1;
+        } else if (status1 == 1) {
+            $('#ispublic').css("display", "none");
+            $('#passw-content+span').text('')
+            status1 = 0;
+        }
+
+
+    })
+    var status2 = status3 = 0;
+    $($('#ispublic-form').children()[0]).click(function () {
+        if (status1 == 1) {
+            $($('#ispublic-form').children()[1]).css('display', 'block');
+            $($('#ispublic-form').children()[3]).css('display', 'none');
+        }
+    })
+    $($('#ispublic-form').children()[2]).click(function () {
+        if (status1 == 1) {
+            $($('#ispublic-form').children()[3]).css('display', 'block');
+            $($('#ispublic-form').children()[1]).css('display', 'none');
+        }
+    });
+    // $($('#btns0').children()[0]).click(function () {
+    //     if (status1 == 1) {
+    //         $('#ispublic-form').css("display", "none");
+    //         status1 = 0;
+    //     }
+    // });
+    $($('#btns0').children()[1]).click(function () {
+        if (status1 == 1) {
+            $('#ispublic').css("display", "none");
+            status1 = 0;
+
+            return false;
+        }
+    });
+
+    layui.use('upload', function () {
+        var index ;
+        var $ = layui.jquery
+            , upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: '{:Url("admin/Upload/index")}'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#breimg').attr('src', result); //图片链接（base64）
+                });
+                index = layer.load(0, {shade: false , offset: '400px'},{time:3000});
+            }
+            , done: function (res) {
+                layer.close(index);
+                console.log(res);
+                // //如果上传失败
+                $('result').text(res.status);
+                //    alert(res.status);
+                if (res.status) {
+                    layer.msg('上传成功', {
+                        title:'提示'
+                        //不自动关闭
+                        ,time:1000
+                        ,icon:6
+                        , offset: '400px'
+                    });
+                    $('#imgsrc').val(res.cdnurl);
+                }
+                //上传成功
+            }
+            , error: function () {
+                layer.close(index);
+                layer.msg('上传出错：1', {
+                    title:'提示'
+                    //不自动关闭
+                    ,time:1000
+                    ,icon:5
+                    , offset: '400px'
+                });
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+    });
+
+
+    $('#btn-ispublic-sure').click(function () {
+        if (($('#passw-content').val() == null || $('#passw-content').val() == '') && $('#ispublic-form .ispublic-radio:checked').val() == -1) {
+            $('#passw-content+span').text('密码不能为空').css('color', 'red')
+
+        } else if (status1 == 1) {
+            $('#ispublic').css("display", "none");
+            // console.log("ispublic"+$('#ispublic-form .ispublic-radio:checked').val());
+            // $('#is-public-res').val($('#ispublic-form .ispublic-radio:checked').val());
+            $('#published-public').text($('#ispublic-form .ispublic-radio:checked+label').text());
+            // if ($('#ispublic-form .ispublic-radio:checked').val() == 1) {
+            //     // $('#hometop').click(function () {
+            //     if ($('#hometop').prop('checked')) {
+            //         $('#is-public-res').val('2');
+            //
+            //     }
+            //     // })
+            //
+            // } else if ($('#ispublic-form .ispublic-radio:checked').val() == -1) {
+            //     $('#is-public-pass').val($('#passw-content').val());
+            // }
+
+            status1 = 0;
+        }
+// console.log( "isp"+$('#is-public-res').val());
+// console.log(  $('#is-public-pass').val());
+        return false;
+    })
+    
+    $('#published-update,#published-save,#published-pub').click(function () {
+        var btntype;
+        if ($(this).attr('id')=='published-update'){
+            btntype=1;
+        } else if($(this).attr('id')=='published-save'){
+            btntype=2;
+        }else if($(this).attr('id')=='published-pub'){
+            btntype=3;
+        }
+        if (tinyMCE.activeEditor.getContent().replace(new RegExp('\n','g'),'')=='<!DOCTYPE html><html><head></head><body></body></html>'){
+            alert_fail('提示','文章不可为空！')
+            return false;
+        }
+        if ($('#art-author').val()==null||$.trim($('#art-author').val())==''||
+            $('#art-title').val()==null||$.trim($('#art-title').val())=='' ){
+            alert_fail('提示','标题或作者不可为空！')
+            return false;
+        }
+        // console.log($('#ispublic-form .ispublic-radio:checked').val())
+        var tagsId = new Array();
+        var publishTemp=1;
+        var passw=0;
+
+        var data = $('.choosed>span>span');
+        console.log($('.choosed').html())
+        for (var i = 0; i < data.length; i++) {
+            // console.log(data.eq(i).text())
+            tagsId[i] = data.eq(i).text();
+        }
+        var typeid = $('.articletyle select').val()
+        // console.log(typeid)
+        $('#type-id').val(typeid);
+        publishTemp=$('#ispublic-form .ispublic-radio:checked').val();
+        if ($('#ispublic-form .ispublic-radio:checked').val() == 1) {
+            // $('#hometop').click(function () {
+            if ($('#hometop').prop('checked')) {
+                publishTemp=2;
+
+            }
+            // })
+
+        } else if ($('#ispublic-form .ispublic-radio:checked').val() == -1) {
+            passw=$('#passw-content').val();
+        }
+        var iscomment=0;
+        if ($('#is-comment').prop('checked')) {
+            iscomment=1;
+
+        }
+        var title=$('#art-title').val();
+        var author=$('#art-author').val();
+        var articleContent=tinyMCE.activeEditor.getContent();
+        var  tags= tagsId;
+        // var  tags=JSON.stringify(tagsId);
+        var type=typeid;
+        var imgSrc=$('#imgsrc').val();
+        var published=publishTemp==undefined?1:publishTemp;
+        var  password=passw;
+        var request=new Object();
+        request=GetRequest();
+        var artid=request['artid'];
+        // //
+        // console.log('title\t'+title)
+        // console.log('author\t'+author)
+        // // console.log('articleContent\t'+articleContent)
+        console.log('tags\t'+tags)
+        // console.log('type\t'+type)
+        // console.log('img\t'+imgSrc)
+        // console.log('published\t'+published)
+        // console.log('password\t'+password)
+        if (btntype==1){
+            artAjax('{:Url("admin/index/artUpdate")}',
+                {'data':JSON.stringify({artid:artid,title:title,author:author,articleContent:articleContent,
+                        tags:tags,type:type,imgSrc:imgSrc,published:published,password:password,iscomment:iscomment})},
+                        function () {
+                alert_success('提示','更新成功');
+            })
+        } else if (btntype==2){
+            artAjax('{:Url("admin/index/artDraftSave")}',
+                {'data':JSON.stringify({artid:artid,title:title,author:author,articleContent:articleContent,
+                        tags:tags,type:type,imgSrc:imgSrc,published:published,password:password,iscomment:iscomment})},
+                function () {
+                alert_success('提示','保存成功');
+            })
+        } else if (btntype==3){
+            artAjax('{:Url("admin/index/artDraftPublish")}',
+                {'data':JSON.stringify({artid:artid,title:title,author:author,articleContent:articleContent,
+                        tags:tags,type:type,imgSrc:imgSrc,published:published,password:password,iscomment:iscomment})},
+                function () {
+                alert_success('提示','发布成功');
+            })
+        }
+        function artAjax(url,data,tip){
+            $.ajax({
+                type:'post',
+                data:data,
+                dataType:'json',
+                async:true,
+                url:url,
+                success:function (data) {
+                    // alert(JSON.stringify(data))
+                    console.log(JSON.stringify(data))
+                    if (JSON.stringify(data)==1){
+                        // alert_success('提示','发布成功');
+                        tip();
+
+
+                    }else{
+                          alert_fail('提示', '错误1');
+
+                    }
+
+
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown) {
+                    // alert('错误-2');
+                    // alert(XMLHttpRequest.status);
+                    // alert(XMLHttpRequest.readyState);
+                    // alert(textStatus);
+                    alert_fail('提示','未知错误')
+                }
+
+            })
+        }
+
+
+
+
+    })
+    $('#articlePreview').click(function () {
+        var title = $('#art-title').val();
+        var author = $('#art-author').val();
+        var articleContent = tinyMCE.activeEditor.getContent();
+        var type = $('.articletyle select:selected').text();
+        $('#artpre-title').val(title);
+        $('#artpre-author').val(author);
+        $('#artpre-content').val(articleContent);
+        $('#artpre-type').val(type);
+
+        $('#form-articlePreview').submit();
+        window.alert=function () {
+            return false;
+        };
+    })
+
+</script>
