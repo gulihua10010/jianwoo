@@ -138,20 +138,34 @@ Apache：
 
 Nginx：
 location / {     
-   	 if (!-e $request_filename) {     
-     	   rewrite ^(.*)$ /index.php?s=$1 last;     
+
+   	 if (!-e $request_filename) {  
+	 
+     	   rewrite ^(.*)$ /index.php?s=$1 last;   
+	   
  	     break;    
  	   }    
+	   
 	}    
+	
  #pathinfo配置 使支持tp5的标准url
+ 
     location ~ .+\.php($|/) {
+    
         fastcgi_pass  unix:/dev/shm/php-fpm-default.sock;
+	
         fastcgi_split_path_info ^((?U).+.php)(/?.+)$;
+	
         fastcgi_param PATH_INFO $fastcgi_path_info;
+	
         fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+	
          fastcgi_param  SCRIPT_FILENAME /data/wwwroot/jwblog/$fastcgi_script_name;
+	 
         include fastcgi_params;
+	
     }
+    
  
 
 项目介绍：
