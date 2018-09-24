@@ -1,0 +1,1081 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f71a6ce1-0eb6-4a97-be07-01aceea30b8b" name="默认" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1902892369">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="12" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.6" value="3" />
+          <entry key="project.open.time.7" value="3" />
+          <entry key="project.open.time.8" value="2" />
+          <entry key="project.opened" value="12" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="php" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PHP" value="5" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-1465551146">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="22" />
+          <entry key="project.open.time.10" value="6" />
+          <entry key="project.open.time.11" value="3" />
+          <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.8" value="8" />
+          <entry key="project.open.time.9" value="8" />
+          <entry key="project.opened" value="29" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="css" value="60" />
+          <entry key="gitignore" value="1" />
+          <entry key="htaccess" value="4" />
+          <entry key="html" value="173" />
+          <entry key="ico" value="2" />
+          <entry key="js" value="60" />
+          <entry key="less" value="5" />
+          <entry key="lock" value="1" />
+          <entry key="php" value="212" />
+          <entry key="png" value="1" />
+          <entry key="sql" value="5" />
+          <entry key="tpl" value="15" />
+          <entry key="ts" value="3" />
+          <entry key="txt" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CSS" value="60" />
+          <entry key="HTML" value="173" />
+          <entry key="Image" value="3" />
+          <entry key="JavaScript" value="60" />
+          <entry key="Less" value="5" />
+          <entry key="PHP" value="212" />
+          <entry key="PLAIN_TEXT" value="8" />
+          <entry key="SQL" value="5" />
+          <entry key="Smarty" value="15" />
+          <entry key="TypeScript" value="3" />
+          <entry key="htaccess" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="css" value="5205" />
+          <entry key="dummy" value="8" />
+          <entry key="gitignore" value="1" />
+          <entry key="html" value="15190" />
+          <entry key="js" value="320" />
+          <entry key="less" value="4" />
+          <entry key="php" value="8578" />
+          <entry key="sql" value="7" />
+          <entry key="tpl" value="236" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="CSS" value="5206" />
+          <entry key="HTML" value="15189" />
+          <entry key="JavaScript" value="320" />
+          <entry key="Less" value="4" />
+          <entry key="PHP" value="8531" />
+          <entry key="PLAIN_TEXT" value="9" />
+          <entry key="SQL" value="54" />
+          <entry key="Smarty" value="236" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.php.new.class">
+        <counts>
+          <entry key="PHP Class.type" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-1783928683">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="css" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CSS" value="4" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="102639898">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="html" value="2" />
+          <entry key="php" value="20" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="HTML" value="2" />
+          <entry key="PHP" value="20" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="html" value="4" />
+          <entry key="php" value="154" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="4" />
+          <entry key="PHP" value="154" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="572">
+              <caret line="194" column="77" selection-start-line="194" selection-start-column="77" selection-end-line="194" selection-end-column="77" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/static/css/jw_main.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/index/view/commom/menu.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="702">
+              <caret line="39" column="31" lean-forward="true" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>uploadimage_rel</find>
+      <find>order</find>
+      <find>module_a</find>
+      <find>URL_MODEL</find>
+      <find>post</find>
+      <find>so</find>
+      <find>inputs</find>
+      <find>topimg</find>
+      <find>1200</find>
+      <find>4</find>
+      <find>my</find>
+      <find>m</find>
+      <find>edit</find>
+      <find>update</find>
+      <find>artUpdate</find>
+      <find>paste</find>
+      <find>toc</find>
+      <find>addmenuresult</find>
+      <find>readAsDataURL</find>
+      <find>images_upload_url</find>
+      <find>textcolor</find>
+      <find>forecolor</find>
+      <find>textpattern</find>
+      <find>TXT</find>
+      <find>list-style</find>
+      <find>ul</find>
+      <find>li</find>
+      <find>txt</find>
+      <find>art-txt</find>
+      <find>margin: 0;padding: 0;</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>uploadimage</replace>
+      <replace />
+      <replace>video</replace>
+      <replace>$reply</replace>
+      <replace>a</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/public/static/css</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$USER_HOME$/Documents/主页特效/index.html" />
+        <option value="$PROJECT_DIR$/public/static/css/lc_switch.css" />
+        <option value="$PROJECT_DIR$/application/admin/view/Login/index.html" />
+        <option value="$PROJECT_DIR$/../thinkphp/index.php" />
+        <option value="$PROJECT_DIR$/../thinkphp/application/database.php" />
+        <option value="$PROJECT_DIR$/application/database.php" />
+        <option value="$PROJECT_DIR$/public/install/index.php" />
+        <option value="/private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/index.php" />
+        <option value="$PROJECT_DIR$/application/admin/view/login/index.html" />
+        <option value="$PROJECT_DIR$/public/static/css/admin.css" />
+        <option value="$PROJECT_DIR$/vendor/geetest/geetestlib.php" />
+        <option value="$PROJECT_DIR$/vendor/geetest/GeetestLib.php" />
+        <option value="/private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/Index 2.php" />
+        <option value="$PROJECT_DIR$/application/config.php" />
+        <option value="$USER_HOME$/Documents/VerifyLoginServlet.php" />
+        <option value="/private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/q.php" />
+        <option value="/private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/q 2.php" />
+        <option value="/private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/Login.php" />
+        <option value="/private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/config.php" />
+        <option value="$PROJECT_DIR$/public/static/css/index.css" />
+        <option value="/private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/jw_main.css" />
+        <option value="$PROJECT_DIR$/application/admin/view/common/articlePublished/index.html" />
+        <option value="$PROJECT_DIR$/application/admin/view/common/articleEdit/index.html" />
+        <option value="$PROJECT_DIR$/public/static/tinymce/plugins/uploadvideo/plugin.min.js" />
+        <option value="$PROJECT_DIR$/public/static/tinymce/plugins/uploadimage/plugin.min.js" />
+        <option value="$PROJECT_DIR$/application/index/view/index/index.html" />
+        <option value="$PROJECT_DIR$/application/admin/view/index/webConfig.html" />
+        <option value="$USER_HOME$/Documents/index.html" />
+        <option value="$PROJECT_DIR$/public/static/tinymce/plugins/code/plugin.min.js" />
+        <option value="$PROJECT_DIR$/public/static/tinymce/plugins/codesample/css/prism1.css" />
+        <option value="$PROJECT_DIR$/public/static/tinymce/plugins/codesample/plugin.min.js" />
+        <option value="$PROJECT_DIR$/application/admin/controller/Index.php" />
+        <option value="$PROJECT_DIR$/public/static/js/prism-line-numbers.js" />
+        <option value="$PROJECT_DIR$/application/route.php" />
+        <option value="$PROJECT_DIR$/public/static/js/prism-toolbar.js" />
+        <option value="$PROJECT_DIR$/application/index/view/index/detail.html" />
+        <option value="$PROJECT_DIR$/public/static/css/prism-toolbar.css" />
+        <option value="$PROJECT_DIR$/application/admin/controller/adminController.php" />
+        <option value="$PROJECT_DIR$/public/static/css/tinymce.css" />
+        <option value="$PROJECT_DIR$/application/admin/controller/Login.php" />
+        <option value="$PROJECT_DIR$/public/static/css/prism.css" />
+        <option value="$PROJECT_DIR$/public/static/tinymce/plugins/codesample/css/prism.css" />
+        <option value="$PROJECT_DIR$/application/admin/view/baseView/index.html" />
+        <option value="$PROJECT_DIR$/application/admin/controller/Upload.php" />
+        <option value="$PROJECT_DIR$/application/admin/view/index/articleEdit.html" />
+        <option value="$PROJECT_DIR$/public/static/layui/css/layui.css" />
+        <option value="$PROJECT_DIR$/application/admin/view/index/articlePublished.html" />
+        <option value="$PROJECT_DIR$/application/index/view/baseView/index.html" />
+        <option value="$PROJECT_DIR$/application/index/view/commom/menu.html" />
+        <option value="$PROJECT_DIR$/application/index/controller/Index.php" />
+        <option value="$PROJECT_DIR$/public/static/css/jw_main.css" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/public/static/jquery-ui/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-image" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-captcha" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-mongo" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-queue" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-migration" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-installer" />
+      <path value="$PROJECT_DIR$/vendor/qiniu/src" />
+      <path value="$PROJECT_DIR$/vendor/qiniu/docs" />
+      <path value="$PROJECT_DIR$/vendor/qiniu/tests" />
+      <path value="$PROJECT_DIR$/vendor/qiniu/examples" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="1004" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="baseView" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="articleEdit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="articlePublished" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="baseView" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="commom" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="index" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="layui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="layui" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="tinymce" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="tinymce" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="tinymce" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="codesample" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="tinymce" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="powerpaste" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="tinymce" type="462c0819:PsiDirectoryNode" />
+              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="powerpaste" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="tinymce" type="462c0819:PsiDirectoryNode" />
+              <item name="skins" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jwblog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jwblog" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/phpStudy/WWW/jwblog/application/index/controller/Index.php" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\phpStudy\WWW\jwblog\public\static\layer\theme" />
+      <recent name="D:\phpStudy\WWW\jwblog\public\static\js" />
+      <recent name="D:\phpStudy\WWW\jwblog\public\static\tinymce" />
+      <recent name="D:\phpStudy\WWW\jwblog\application\admin\view\Index" />
+      <recent name="D:\phpStudy\WWW\jwblog\application\admin\view\login" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/static/tinymce/plugins" />
+      <recent name="$PROJECT_DIR$/public/static/js" />
+      <recent name="$PROJECT_DIR$/public/static/tinymce/plugins/codesample/css" />
+      <recent name="$PROJECT_DIR$/public/static/css" />
+      <recent name="$PROJECT_DIR$/public/static/tinymce/plugins/codesample" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.Index.php">
+    <configuration name="Index.php" type="JavascriptDebugType" factoryName="JavaScript Debug" nameIsGenerated="true" uri="http://localhost:63342/jwblog/index/controller/Index.php">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:53443/jwblog/admin/view/login/index.html">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Index.php" />
+      <item itemvalue="JavaScript Debug.index.html" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f71a6ce1-0eb6-4a97-be07-01aceea30b8b" name="默认" comment="" />
+      <created>1530194479589</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1530194479589</updated>
+      <workItem from="1530194480718" duration="14607000" />
+      <workItem from="1530253210677" duration="27908000" />
+      <workItem from="1530428850408" duration="16287000" />
+      <workItem from="1530445624467" duration="16260000" />
+      <workItem from="1530468839232" duration="5194000" />
+      <workItem from="1530513457623" duration="33686000" />
+      <workItem from="1530760814157" duration="32850000" />
+      <workItem from="1530873546802" duration="8925000" />
+      <workItem from="1530944615975" duration="31691000" />
+      <workItem from="1531031536985" duration="32618000" />
+      <workItem from="1531119235929" duration="32156000" />
+      <workItem from="1531208764911" duration="6111000" />
+      <workItem from="1531227144763" duration="6650000" />
+      <workItem from="1531288833053" duration="35844000" />
+      <workItem from="1531378312530" duration="19537000" />
+      <workItem from="1531413182668" duration="2128000" />
+      <workItem from="1531555221856" duration="5521000" />
+      <workItem from="1532135993390" duration="10686000" />
+      <workItem from="1532177091067" duration="12787000" />
+      <workItem from="1532222030280" duration="13099000" />
+      <workItem from="1532263328257" duration="14775000" />
+      <workItem from="1532316380525" duration="2648000" />
+      <workItem from="1532350919621" duration="12781000" />
+      <workItem from="1532403261894" duration="8861000" />
+      <workItem from="1532439067940" duration="6253000" />
+      <workItem from="1532522450457" duration="13268000" />
+      <workItem from="1532581178872" duration="2362000" />
+      <workItem from="1532588708708" duration="1481000" />
+      <workItem from="1532607703581" duration="16196000" />
+      <workItem from="1532673517430" duration="29349000" />
+      <workItem from="1532759494173" duration="11041000" />
+      <workItem from="1532790089239" duration="5713000" />
+      <workItem from="1532836307045" duration="9140000" />
+      <workItem from="1532851169181" duration="5944000" />
+      <workItem from="1532868628194" duration="12808000" />
+      <workItem from="1532933083008" duration="10163000" />
+      <workItem from="1532956310399" duration="10833000" />
+      <workItem from="1532999527290" duration="20925000" />
+      <workItem from="1533042740106" duration="10792000" />
+      <workItem from="1533088899385" duration="15004000" />
+      <workItem from="1533130106918" duration="11547000" />
+      <workItem from="1533195232531" duration="14759000" />
+      <workItem from="1533271407738" duration="31380000" />
+      <workItem from="1533344877377" duration="10932000" />
+      <workItem from="1533367153947" duration="1631000" />
+      <workItem from="1533433901628" duration="11359000" />
+      <workItem from="1533482779817" duration="253000" />
+      <workItem from="1533483594523" duration="12175000" />
+      <workItem from="1533560694776" duration="9205000" />
+      <workItem from="1533611823547" duration="9231000" />
+      <workItem from="1533647858127" duration="11717000" />
+      <workItem from="1533695610410" duration="8056000" />
+      <workItem from="1533717856826" duration="1305000" />
+      <workItem from="1533794671595" duration="29095000" />
+      <workItem from="1533879807598" duration="29363000" />
+      <workItem from="1533948748706" duration="15921000" />
+      <workItem from="1533990835072" duration="7238000" />
+      <workItem from="1534035256925" duration="1288000" />
+      <workItem from="1534055010867" duration="11408000" />
+      <workItem from="1534080423129" duration="8474000" />
+      <workItem from="1534121947883" duration="8267000" />
+      <workItem from="1534147576062" duration="5470000" />
+      <workItem from="1534166565132" duration="10153000" />
+      <workItem from="1534208824518" duration="8726000" />
+      <workItem from="1534253697371" duration="7231000" />
+      <workItem from="1534295231443" duration="14447000" />
+      <workItem from="1534340853585" duration="596000" />
+      <workItem from="1534342679874" duration="28000" />
+      <workItem from="1534344180302" duration="599000" />
+      <workItem from="1534404245971" duration="10924000" />
+      <workItem from="1534945687399" duration="1389000" />
+      <workItem from="1534947963572" duration="36000" />
+      <workItem from="1534948042024" duration="28000" />
+      <workItem from="1534948111474" duration="33000" />
+      <workItem from="1534948230554" duration="357000" />
+      <workItem from="1534948737703" duration="218000" />
+      <workItem from="1534987171377" duration="22000" />
+      <workItem from="1535022674085" duration="150000" />
+      <workItem from="1535022847449" duration="68000" />
+      <workItem from="1535026573997" duration="58000" />
+      <workItem from="1534942306132" duration="232000" />
+      <workItem from="1536182980775" duration="1079000" />
+      <workItem from="1536156960778" duration="1682000" />
+      <workItem from="1536157372475" duration="33747000" />
+      <workItem from="1536381904924" duration="12119000" />
+      <workItem from="1536384106071" duration="143000" />
+      <workItem from="1536474934547" duration="15590000" />
+      <workItem from="1536382593616" duration="650000" />
+      <workItem from="1536505818440" duration="6555000" />
+      <workItem from="1536560952866" duration="18312000" />
+      <workItem from="1536613310840" duration="9719000" />
+      <workItem from="1536718855340" duration="31096000" />
+      <workItem from="1536774066033" duration="3223000" />
+      <workItem from="1536791017530" duration="20486000" />
+      <workItem from="1536848092262" duration="5798000" />
+      <workItem from="1536903852244" duration="17196000" />
+      <workItem from="1536989173146" duration="17539000" />
+      <workItem from="1536983403288" duration="888000" />
+      <workItem from="1536998591260" duration="8251000" />
+      <workItem from="1537039055549" duration="31555000" />
+      <workItem from="1537080420010" duration="21411000" />
+      <workItem from="1537259134379" duration="2807000" />
+      <workItem from="1537269536163" duration="10061000" />
+      <workItem from="1537336900999" duration="11692000" />
+      <workItem from="1537355147504" duration="391000" />
+      <workItem from="1537367347884" duration="7000" />
+      <workItem from="1537367437014" duration="7504000" />
+      <workItem from="1537429534013" duration="22949000" />
+      <workItem from="1537509903350" duration="4921000" />
+      <workItem from="1537597850577" duration="4435000" />
+      <workItem from="1537620602733" duration="18120000" />
+      <workItem from="1537683718655" duration="26428000" />
+      <workItem from="1537772909796" duration="4568000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1261173000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1920" height="1004" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4993598" visible="true" weight="0.19914803" />
+      <window_info id="Structure" order="1" sideWeight="0.5006402" side_tool="true" weight="0.18903089" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3319239" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.23135965" />
+      <window_info anchor="bottom" id="Command Line Tools Console" order="12" weight="0.3291536" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" x="0" y="0" width="434" height="866" id="文档" order="4" side_tool="true" weight="0.3296875" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/license.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/themes/mobile/theme.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret column="33749" selection-start-column="33749" selection-end-column="33749" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/jquery.tinymce.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/tinymce.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/prettify/styles/desert.css" />
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/code/plugin.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="539" lean-forward="true" selection-start-column="539" selection-end-column="539" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/prettify/styles/sunburst.css" />
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/codesample/css/sunburst.css" />
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/prettify/plugin.min.js" />
+    <entry file="file://$PROJECT_DIR$/application/index/view/index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-740">
+          <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/prettify/js-modules/numberLines.js" />
+    <entry file="file://$PROJECT_DIR$/public/static/js/prism.css" />
+    <entry file="file://$PROJECT_DIR$/public/static/js/prism.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_0.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="540" column="8" lean-forward="true" selection-start-line="540" selection-start-column="8" selection-end-line="540" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/prettify/js-modules/prettify.js" />
+    <entry file="file://$PROJECT_DIR$/application/database.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/model/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="570" column="20" selection-start-line="570" selection-start-column="20" selection-end-line="570" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/route.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/clipboard.js-master/dist/clipboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9563" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/js/prism-line-numbers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="826">
+          <caret line="158" column="5" selection-start-line="158" selection-start-column="5" selection-end-line="158" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/js/prism-toolbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="826">
+          <caret line="136" column="5" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/clipboard.js-master/demo/target-input.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/codesample/plugin.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="663" column="42" selection-start-line="663" selection-start-column="42" selection-end-line="663" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/common/articleEdit/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-686">
+          <caret line="361" column="37" selection-start-line="361" selection-start-column="37" selection-end-line="361" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/js/clipboard.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/index/view/index/detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1023">
+          <caret line="466" lean-forward="true" selection-start-line="466" selection-end-line="466" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/css/prism-toolbar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="31" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../jwblog1/public/static/tinymce/plugins/prettify/styles/sunburst.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="36" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/common.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-864">
+          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/controller/adminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="85" column="35" lean-forward="true" selection-start-line="85" selection-start-column="35" selection-end-line="85" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../jwblog1/application/admin/view/Index/articlePublished.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="72" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/controller/Login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="91" column="4" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/codesample/css/prism.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="105" column="19" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/index/menuMg.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="283" column="58" selection-start-line="283" selection-start-column="45" selection-end-line="283" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/controller/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="927" column="26" selection-start-line="927" selection-start-column="13" selection-end-line="927" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/baseView/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="80" lean-forward="true" selection-start-line="18" selection-start-column="80" selection-end-line="18" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/powerpaste/css/editorcss.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/powerpaste/agpl-3.0.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/tinymce/plugins/powerpaste/js/wordimport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="358" column="65" selection-start-line="358" selection-start-column="65" selection-end-line="358" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_8.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="770" column="9" selection-start-line="770" selection-start-column="9" selection-end-line="770" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/layui/css/layui.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="28" column="112" selection-start-line="28" selection-start-column="112" selection-end-line="28" selection-end-column="112" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/css/prism.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1116">
+          <caret line="62" column="1" selection-start-line="62" selection-start-column="1" selection-end-line="62" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/css/tinymce.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/controller/Upload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="41" column="24" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/index/articleEdit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="45" selection-start-line="45" selection-end-line="86" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/index/articlePublished.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="70" column="32" selection-start-line="70" selection-start-column="32" selection-end-line="70" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///private/var/folders/yy/fh7cp9bx4xjgb5xwvj4hz1dr0000gn/T/fz3temp-2/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2970" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/index/view/baseView/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="36" column="81" selection-start-line="36" selection-start-column="81" selection-end-line="36" selection-end-column="81" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/index/view/commom/menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="39" column="31" lean-forward="true" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="194" column="77" selection-start-line="194" selection-start-column="77" selection-end-line="194" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/css/jw_main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
