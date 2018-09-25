@@ -11,6 +11,8 @@ ThinkPHP 5.0------简窝博客1.0
 
 本次博客为第一版，后续会持续更新中。。 
 
+官网地址：http://jianwoo.cn
+
 > ThinkPHP5的运行环境要求PHP5.4以上。
 
 详细开发文档参考 [ThinkPHP5完全开发手册](http://www.kancloud.cn/manual/thinkphp5)
