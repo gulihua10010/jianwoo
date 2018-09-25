@@ -102,12 +102,12 @@
     $(function () {
         $('.art-title').mouseover(function (e) {
             $(this).mousemove(function (e) {
-                var x=e.pageX;
-                var y=e.pageY;
-                var xx=e.screenX;
-                var yy=e.screenY;
+                var top=$(this).offset().top;
+                var left=$(this).offset().left;
+                var x=e.pageX-left;
+                var y=e.pageY-top;
                 $(this).after('<span style="color:red" class="tit_alt">'+ $(this).text()+'</span>');
-                $(this).parent().find('.tit_alt').css('position','absolute').css('left',x).css('top',y-50)
+                $(this).parent().find('.tit_alt').css('left',x).css('top',y)
             })
         });
         $(document).on('mouseleave','.art-title',function () {
@@ -115,5 +115,6 @@
             $(this).parent().find('.tit_alt').remove();
         });
     })
+
 </script>
 {/block}
