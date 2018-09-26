@@ -346,6 +346,7 @@ class Index extends Controller
         $this->assign('artdays',json_encode($artdays));
         $this->assign('foot',$this->getFoots());
         $this->assign('webrecord',$this->getWebrecord());
+        $this->assign('author',$webconf['webconf_author']);
         //找不到文章->
         if (sizeof($arts)==0){
             return $this->fetch('notfound');
@@ -414,17 +415,21 @@ class Index extends Controller
                 'name'=>$type['types_content'],
                 'href'=>'index?m='.$currentMenu['menu_id'].'&&?t='.$type['types_id']
             );
+            $typecon=$type['types_content'];
 
         }else if ($typeid==0){
            $nav=null;
+           $type='暂无类别';
         }else{
             $currentMenu=home::getTypeName($typeid);
             $nav[1] = array(
                 'name'=>$currentMenu['menu_name'],
                 'href'=>'index?m='.$currentMenu['menu_id']
             );
+            $typecon=$currentMenu['menu_name'];
 
         }
+
 
         $comment = home::getComment($art['id']);
         $commentLastId = home::getCommentLastId();
@@ -513,6 +518,7 @@ class Index extends Controller
       //  console_log($typecon);
         $this->assign('menulist', $menu);
         $this->assign('nav', $nav);
+        $this->assign('typecon', $typecon);
         $this->assign('menuname', $currentMenu);
         $this->assign('commentlist', $commentlist);
         $this->assign('articleCon', $article);
@@ -531,7 +537,7 @@ class Index extends Controller
         $this->assign('taglist',$taglist);
         $this->assign('hotArt', $hotArt);
         $this->assign('webrecord',$this->getWebrecord());
-
+        $this->assign('author',$article['article_author']);
 
         if (sizeof($art['id'])==0||$article==null){
             return $this->fetch('notfound');
