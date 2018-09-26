@@ -95,12 +95,18 @@ div.index-main>div.article-list>div.article-breviary>div.art-bre-info>div:last-c
 .calendar table>tfoot a:hover{color:#B40BB7;font-weight:700}
 div.art-box{background-color:#fff;border-radius:10px;-moz-border-radius:10px;-o-border-radius:10px;-webkit-border-radius:10px;box-shadow:2px 2px 3px rgba(0,0,0,.15);padding:10px}
 div.art-box>.artb-title{border-bottom:#B40BB7 2px solid}
-div.art-box>.artb-title>span{margin:auto 7px;line-height:30px;cursor:pointer;font-size:16px}
-div.art-box>div:not(.artb-title){margin:5px 10px}
+div.art-box>.artb-title>span{margin:auto 7px;line-height:30px;cursor:pointer;font-size:16px;}
+div.art-box>div:not(.artb-title){margin:5px 0;}
 .art-titlehover{color:#940BB7;font-weight:700}
 .hidden{display:none}
 .display{display:block}
-div.art-box ul>li{margin:5px 10px;cursor:pointer;text-align:left;list-style-type: none;}
+[class^="li-no-"]{width:15px;height:15px;text-align:center;line-height:15px;display:inline-block;border-radius: 10px;}
+.li-no-one{background-color: #ff0032;}
+.li-no-two{background-color: #ff7e37;}
+.li-no-three{background-color: #ffb226;}
+.li-no-othor{width:15px;height:15px;text-align:center;line-height:15px;display:inline-block;background-color: #8fabf6;}
+div.art-box ul{padding: 0;margin: 0  5px;}
+div.art-box ul>li{margin:5px 0;cursor:pointer;text-align:left;list-style-type: none;padding: 0;}
 div.art-box ul>li>a{text-decoration:none;color:#777}
 div.art-box ul>li:hover a{color:#940BB7}
 div.art-tags{background-color:#fff;padding:10px;border-radius:10px;-webkit-border-radius:10px;-o-border-radius:10px;-moz-border-radius:10px;box-shadow:2px 2px 3px rgba(0,0,0,.15)}
