@@ -7,7 +7,7 @@
     <div class="newest-art display">
         <ul>
             {foreach name="newestArt" item="news"}
-            <li><a href="{:Url('index/index/detail',['id'=>$news.article_id])}">{$news.article_title|sub_str=###,22}</a>
+            <li><a href="{:Url('index/index/detail',['id'=>$news.article_id])}">{$news.article_title|sub_str=###,18}</a>
                 <a style="display: none" class="tit-dis-no">{$news.article_title}</a>
             </li>
             {/foreach}
@@ -17,7 +17,7 @@
         <ul>
             {foreach name="randomtArt" item="random"}
             <li>
-                <a href="{:Url('index/index/detail',['id'=>$random.article_id])}">{$random.article_title|sub_str=###,22}</a>
+                <a href="{:Url('index/index/detail',['id'=>$random.article_id])}">{$random.article_title|sub_str=###,18}</a>
                     <a style="display: none" class="tit-dis-no">{$random.article_title}</a>
             </li>
             {/foreach}
@@ -26,7 +26,7 @@
     <div class="hot-art hidden">
         <ul>
             {foreach name="hotArt" item="hot"}
-            <li><a href="{:Url('index/index/detail',['id'=>$hot.article_id])}">{$hot.article_title|sub_str=###,22}</a>
+            <li><a href="{:Url('index/index/detail',['id'=>$hot.article_id])}">{$hot.article_title|sub_str=###,18}</a>
                 <a style="display: none" class="tit-dis-no">{$hot.article_title}</a>
             </li>
             {/foreach}
@@ -90,6 +90,21 @@
             $(document).on('mouseleave','.art-box ul>li',function () {
                 // $(this).parent
                 $(this).parent().find('.tit_alt').remove();
+            });
+            var length=$('.art-box ul>li').length;
+            $('.art-box ul>li').each(function (index) {
+               var  li=length/3;
+                $($(this).children('a').get(0)).before('<span>'+parseInt(index%li+1)+'</span>');
+
+                    if (parseInt(index%li+1)===1){
+                        $(this).children('span').addClass('li-no-one');
+                    }else  if (parseInt(index%li+1)===2){
+                    $(this).children('span').addClass('li-no-two');
+                    }else if (parseInt(index%li+1)===3){
+                        $(this).children('span').addClass('li-no-three');
+                    } else {
+                        $(this).children('span').addClass('li-no-othor');
+                    }
             });
 
     });
