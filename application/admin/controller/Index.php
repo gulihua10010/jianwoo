@@ -342,9 +342,9 @@ class Index extends adminController
         $dateorder = $re['dateOrder'];
         $top = '=';
 //        console_log($type);
-        if ($type == null) {
-            $type = -99999;
-            $top = '>=';
+            if ($type == null||$type==-999) {
+                $type = -999;
+            $top = '>';
         }
         if ($dateorder == 2) {
             $orderOp = 'article_pushdate desc';
@@ -386,7 +386,6 @@ class Index extends adminController
                 ->paginate(11, false, ['query' => ['m' => 'all', 'date' => $date, 'type' => $type, 'dateOrder' => $dateorder]])
                 ->each(function ($item, $key) {
                     $item['article_type'] = admin::getTypeName($item['article_typeid']);
-//            console_log($item['article_type']);
                     $item['article_commentCount'] = admin::getArtComm($item['article_id']);
                     $item['article_tags'] = admin::getArtTags($item['article_id']);
                     return $item;
@@ -402,7 +401,6 @@ class Index extends adminController
                 ->paginate(11, false, ['query' => ['m' => 'all', 'date' => $date, 'type' => $type, 'dateOrder' => $dateorder]])
                 ->each(function ($item, $key) {
                     $item['article_type'] = admin::getTypeName($item['article_typeid']);
-//            console_log($item['article_type']);
                     $item['article_commentCount'] = admin::getArtComm($item['article_id']);
                     $item['article_tags'] = admin::getArtTags($item['article_id']);
 
@@ -698,7 +696,7 @@ class Index extends adminController
 
         $this->assign('tags', $tags);
         $this->assign('types', $selType);
-        $html = htmlspecialchars_decode($art['article_content']);
+        $html = $art['article_content'];
         $html = preg_replace("/'/i", "\"", $html);
         $html = preg_replace("/\\\\/i", "\\\\\\\\", $html);
         $html = preg_replace("/\n/i", "\\n'+\n'", $html);
