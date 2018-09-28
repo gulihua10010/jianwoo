@@ -26,15 +26,22 @@
     <link rel="stylesheet" type="text/css" href="__STATIC__/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/prism-toolbar.css">
     <link rel="stylesheet" type="text/css" href="__CSS__/jw_main.css">
-
     <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
-    <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
-    <script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/common.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/prism.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/prism-line-numbers.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/prism-toolbar.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/clipboard.min.js"></script>
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
 </head>
 <body>
 {if condition="($webconf.webconf_indextopimg!=null)"}
@@ -56,14 +63,14 @@
 </div>
 <div class="main">
     <div class="main-conternt">
-    {block name="main"}
-    {/block}
-    <div class="usermodel">
-        {block name="usermodel"}
-        {include file="commom/usermodel"/}
+        {block name="main"}
         {/block}
-    </div>
-    <div class="clear"></div>
+        <div class="usermodel">
+            {block name="usermodel"}
+            {include file="commom/usermodel"/}
+            {/block}
+        </div>
+        <div class="clear"></div>
     </div>
 </div>
 <div class="footer">
@@ -71,5 +78,15 @@
     {include file="commom/footer"/}
     {/block}
 </div>
+
+
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<script type="text/javascript" src="__STATIC__/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/js/prism.js"></script>
+<script type="text/javascript" src="__STATIC__/js/prism-line-numbers.js"></script>
+<script type="text/javascript" src="__STATIC__/js/prism-toolbar.js"></script>
+<script type="text/javascript" src="__STATIC__/js/clipboard.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/timeballs.js"></script>
 </body>
 </html>
