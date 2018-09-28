@@ -4,9 +4,9 @@
 <div class="index-position">
         <span>当前位置:<a href="{:Url(\'index/index/index\')}' ">首页>></a>
             {if condition="($flag==1||$flag==2)"}
-            <a href="{:Url('index/index/index',['m'=>$menuname.menu_id])}">{$menuname.menu_name}>></a>
+            <a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/index',['m'=>$menuname.menu_id])}">{$menuname.menu_name}>></a>
                 {if condition="($flag ==1)"}
-                    <a href="{:Url('index/index/index',['m'=>$menuname.menu_id,'t'=>$typename.types_id])}">{$typename.types_content}</a>
+                    <a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/index',['m'=>$menuname.menu_id,'t'=>$typename.types_id])}">{$typename.types_content}</a>
                 {/if}
             {/if}
             {if condition="($flag ==4)"}
@@ -32,7 +32,7 @@
                 {$article.article_type.menu_name}
                 {/if}
                  </span>{/if}
-                <span class="art-title" onclick="window.location.href='{:Url(\'index/index/detail\',[\'id\'=>$article.article_id])}'"> {$article.article_title}</span>
+                <a class="art-title" href="{:Url('index/index/detail',['id'=>$article.article_id])}"> {$article.article_title}</a>
             </div>
             <div class="art-bre-top">
                 <div class="art-bre-left"
@@ -51,9 +51,9 @@
                         <span class="art-author"><i class="iconfont">&#xe67a;</i>&nbsp;{$article.article_author}</span>
                         <span class="art-date"><i class="iconfont">&#xe65d;</i>&nbsp;{$article.article_pushdate}</span>
                         <span class="art-readers"><i class="iconfont">&#xe603;</i>&nbsp;{$article.article_readcount}</span>
-                        <span class="art-comment"
-                              onclick="window.location.href='{:Url(\'index/index/detail\',[\'id\'=>$article.article_id])}#comments'">
-                            <i class="iconfont">&#xe682;</i>&nbsp;{$article.article_commentCount}条评论</span>
+                        <a class="art-comment"
+                               href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/detail',['id'=>$article.article_id])}#comments">
+                            <i class="iconfont">&#xe682;</i>&nbsp;{$article.article_commentCount}条评论</a>
                         {if condition="($article.article_isgoods == 1)"}
                         <span class="art-goods " style="color: red">
                             <i class="iconfont" style="color: red">&#xe502;</i>&nbsp;{$article.article_goodscount}
@@ -66,7 +66,7 @@
 
                         {/if}
                 </div>
-                <div><a href="{:Url('index/index/detail',['id'=>$article.article_id])}">阅读全文>></a></div>
+                <div><a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/detail',['id'=>$article.article_id])}">阅读全文>></a></div>
             </div>
         </div>
         {/foreach}

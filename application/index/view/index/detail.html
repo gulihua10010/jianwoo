@@ -140,10 +140,10 @@
 
     <div class="page-foot"></div>
 </div>
-
+<input type="hidden" id="commlastid" value="{$commlastid}">
 <script>
-    window.onload = function () {
-        // if ({$goodsAdd} == 1) {
+ $(document).ready(function () {
+     // if ({$goodsAdd} == 1) {
         //     $(".goods-add").css('color', 'red');
         //     $('.goods-add').html('<i class="iconfont" id="goodsafter">&#xe672;</i></br>{$articleCon.article_goodscount}').css('display', 'block')
         // }
@@ -156,7 +156,9 @@
         xmlbj.open('GET','{:Url("index/index/addPv",["id"=>$articleCon.article_id])}',true);
         xmlbj.send()
 
-    }
+
+
+
 
 
     spans = $('.artd-tags').find('span');
@@ -245,7 +247,7 @@
 
 
     //评论提交
-    var commid = {$commlastid} + 1;
+    var commid =  $('#commlastid').val() + 1;
     $('.comment').on('click', '.comment-btn', function () {
         var commentext = $(this).parent().parent().parent().find('textarea').val();
         var username = $(this).parent().parent().parent().find('.username').val();
@@ -295,7 +297,6 @@
 
             replyId = -1;
             commid++;
-            ;
         } else {
             if ($thisfourpars.parent().attr('class') == "comment-list") {
                 addcom = $(this).parent().parent().parent().next()
@@ -320,8 +321,8 @@
                 '                            class="iconfont">&#xe682;</i>&nbsp;评论</span></div>' +
                 '                     </div>   ';
             replyId = $(this).parent().parent().parent().parent().find('.comment-info span:last-child ').eq(0).text();
-          //  console.log(replyId)
-           // console.log($(this).parent().parent().parent().parent().attr('class'))
+              console.log(replyId)
+            // console.log($(this).parent().parent().parent().parent().attr('class'))
             // console.log($(this).parent().parent().parent().parent().html())
             commid++;
         }
@@ -461,6 +462,10 @@
             }, 5000);
         }
     });
+
+
+ })
+
 </script>
 {/block}
 
