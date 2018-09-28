@@ -1,10 +1,10 @@
 {if condition="($taglist!=null)"}
 <div class="art-tags">
     <p>标签云集</p>
-     <div>
+     <div style="position: relative">
          {foreach name="taglist" item="tags"}
          <span>
-             <a href="{:Url('index/index/index',['tagid'=>$tags.tags_id])}">{$tags.tags_content}</a>
+             <a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/index',['tagid'=>$tags.tags_id])}">{$tags.tags_content}</a>
              <a style="display: none" class="tags-id">{$tags.count}</a>
          </span>
          {/foreach}
@@ -26,12 +26,12 @@
      $(function () {
          $('.art-tags span ').mouseover(function (e) {
              $(this).mousemove(function (e) {
-                 var x=e.pageX;
-                 var y=e.pageY;
-                 var xx=e.screenX;
-                 var yy=e.screenY;
+                 var top=$(this).offset().top;
+                 var left=$(this).offset().left;
+                 var x=e.pageX-left;
+                 var y=e.pageY-top;
                  $(this).after('<span style="color:red" class="tit_alt">'+ $(this).find('.tags-id').text()+'个话题</span>');
-                 $(this).parent().find('.tit_alt').css('position','absolute').css('left',x).css('top',y-50)
+                 $(this).parent().find('.tit_alt').css('left',x).css('top',y+20)
              })
          });
          $(document).on('mouseleave','.art-tags span ',function () {

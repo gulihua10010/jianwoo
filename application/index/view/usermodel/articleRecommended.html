@@ -7,7 +7,7 @@
     <div class="newest-art display">
         <ul>
             {foreach name="newestArt" item="news"}
-            <li><a href="{:Url('index/index/detail',['id'=>$news.article_id])}">{$news.article_title|sub_str=###,18}</a>
+            <li><a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/detail',['id'=>$news.article_id])}">{$news.article_title|sub_str=###,18}</a>
                 <a style="display: none" class="tit-dis-no">{$news.article_title}</a>
             </li>
             {/foreach}
@@ -17,7 +17,7 @@
         <ul>
             {foreach name="randomtArt" item="random"}
             <li>
-                <a href="{:Url('index/index/detail',['id'=>$random.article_id])}">{$random.article_title|sub_str=###,18}</a>
+                <a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/detail',['id'=>$random.article_id])}">{$random.article_title|sub_str=###,18}</a>
                     <a style="display: none" class="tit-dis-no">{$random.article_title}</a>
             </li>
             {/foreach}
@@ -26,7 +26,7 @@
     <div class="hot-art hidden">
         <ul>
             {foreach name="hotArt" item="hot"}
-            <li><a href="{:Url('index/index/detail',['id'=>$hot.article_id])}">{$hot.article_title|sub_str=###,18}</a>
+            <li><a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/detail',['id'=>$hot.article_id])}">{$hot.article_title|sub_str=###,18}</a>
                 <a style="display: none" class="tit-dis-no">{$hot.article_title}</a>
             </li>
             {/foreach}
