@@ -86,8 +86,8 @@ class admin extends Model
     static function articleSubmit($data, $artText, $status)
     {
         $date = date("Y-m-d H:i:s");
-        $where['article_author'] = $data['author'];
-        $where['article_title'] = $data['title'];
+        $where['article_author'] =  preg_replace("/(<)(>)/i", "&lt; &gt;", $data['author']);;
+        $where['article_title'] = preg_replace("/(<)(>)/i", "&lt; &gt;",  $data['title']);
         $where['article_content'] = $data['articleContent'];
         $where['article_text'] = $artText;
         $where['article_typeid'] = $data['type']==null ? 0 : $data['type'];
