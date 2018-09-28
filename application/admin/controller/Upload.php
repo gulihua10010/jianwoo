@@ -142,10 +142,10 @@ class Upload extends Controller
             return ["err" => 1, "msg" => '上传出错', "data" => "", "localpath" => '', "webpath" => ''];
 
         }
-        $info = $file->rule('date')->validate(['size' => '64971520', 'ext' => 'mp4,rm,rmvb,mpeg,mov,mtv,dat,wmv,avi ,3gp,amv,dmv,flv'])->move(ROOT_PATH . 'public' . DS . 'upload');
+        $info = $file->rule('date')->validate(['size' => '64971520', 'ext' => 'mp4,rm,rmvb,mpeg,mov,mtv,dat,wmv,avi ,3gp,amv,dmv,flv']);
 
 
-        // 要上传图片的本地路径
+        // 要上传视频的本地路径
         $webpath = $info->getSaveName();
         $filePath = $info->getRealPath();
         $ext = pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);  //后缀
@@ -169,7 +169,7 @@ class Upload extends Controller
             return ["err" => 1, "msg" => $err, "data" => "", "localpath" => '', "webpath" => ''];
         } else {
             //返回图片的完整URL
-            return ["err" => 0, "msg" => "上传完成", "data" => ($domain . '/' . $ret['key']), "localpath" => $filePath, "webpath" => $webpath];
+            return ["err" => 0, "msg" => "上传完成", "data" => ($domain . '/' . $ret['key']), "localpath" => $filePath, "webpath" => $filePath];
         }
     }
 
