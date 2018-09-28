@@ -1,22 +1,12 @@
 <div class="index-menu">
     <div>
         <ul>
-
-            <li onclick="window.location.href='{:Url(\'index/index/index\')}'">
-                <span  {if condition="($menuname.menu_name ==null)"} class="menu-activity" {/if}>首页</span>
-            </li>
+            <li><a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/index')}" {if condition="($menuname.menu_name ==null)"} class="menu-activity" {/if}>首页</a></li>
             {foreach name="menulist" item="menulist"}
-            <li>
-                <span onclick="window.location.href='{:Url(\'index/index/index\',[\'m\'=>$menulist.menu_id])}' "
-                      {if condition="($menuname.menu_name == $menulist.menuName)"} class="menu-activity" {/if}>{$menulist.menuName}</span>
+            <li><a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/index',['m'=>$menulist.menu_id])}"{if condition="($menuname.menu_name == $menulist.menuName)"} class="menu-activity" {/if}>{$menulist.menuName}</a>
                 <ul class="submenu">
                     {foreach name="menulist.subMenu" item="subMenu"}
-                    <li>
-                    <span onclick="window.location.href='{:Url(\'index/index/index\',[\'m\'=>$menulist.menu_id,\'t\'=>$subMenu.types_id])}' ">
-                        {$subMenu.types_content}
-                    </span>
-
-                    </li>
+                    <li><a href="{if condition='($webconf.webconf_domain !=null)'}{$webconf.webconf_domain}{/if}{:Url('index/index/index',['m'=>$menulist.menu_id,'t'=>$subMenu.types_id])}">{$subMenu.types_content}</a></li>
                     {/foreach}
                 </ul>
             </li>
